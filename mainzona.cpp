@@ -258,7 +258,7 @@ int main (){
     cout << "Nome: " << presidente.getNome() << endl;
     cout << "Salario: " << presidente.getSalario() << endl;
     cout << "Area Supervisao: " << presidente.getAreaSupervisao() << endl;
-    cout << "TESTE DE ALTERAÇAO";
+    cout << "TESTE DE ALTERAÇAO 2.2";
 
 }
  
