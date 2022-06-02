@@ -1,4 +1,4 @@
-#include "c3Presidente.h"
+#include "classesBase\c3Presidente\presidente.h"
 
 
 c3Presidente::c3Presidente(){

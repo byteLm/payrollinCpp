@@ -1,4 +1,4 @@
-#include "Classes/motherFuncionario/motherFuncionario.h"
+#include "classesBase\mFuncionario\motherFuncionario.h"
 
 //Classe gerente herda de mFuncionario
 class c1Gerente : public mFuncionario{
