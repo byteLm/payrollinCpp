@@ -253,11 +253,11 @@ string c3Presidente::getFormacaoMax(){
 
 
 int main (){
-
     // Criação de um objeto do tipo funcionario e cout de todos os seus atributos:
-    mFuncionario funcionario = mFuncionario();
-    cout << "Nome: " << funcionario.getNome() << endl;
-    cout << "Salario: " << funcionario.getSalario() << endl;
+    c3Presidente presidente = c3Presidente();
+    cout << "Nome: " << presidente.getNome() << endl;
+    cout << "Salario: " << presidente.getSalario() << endl;
+    cout << "Area Supervisao: " << presidente.getAreaSupervisao() << endl;
 
 }
  
