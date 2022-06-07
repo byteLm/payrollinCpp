@@ -22,11 +22,11 @@ class mFuncionario
 {
     public:
         mFuncionario();
-        mFuncionario(int codigo, string nome, string endereco, string telefone, string dataIngresso, float salario, int desig);
+        mFuncionario(string codigo, string nome, string endereco, string telefone, string dataIngresso, float salario, int desig);
 
         
         //Getters
-        int getCodigo();
+        string getCodigo();
         int getDesig();
         string getNome();
         string getEndereco();
@@ -35,7 +35,7 @@ class mFuncionario
         float getSalario();
 
         //Setters
-        void setCodigo(int codigo);
+        void setCodigo(string codigo);
         void setDesig(int desig);
         void setNome(string nome);
         void setEndereco(string endereco);
@@ -44,7 +44,7 @@ class mFuncionario
         void setSalario(float salario);
 
     protected:
-        int codigo;
+        string codigo;
         int desig;
 
         string nome;
@@ -55,7 +55,7 @@ class mFuncionario
 
 };
 mFuncionario::mFuncionario(){
-    codigo = 0;
+    codigo = "0";
     desig = 0;
     nome = "";
     endereco = "";
@@ -63,7 +63,7 @@ mFuncionario::mFuncionario(){
     dataIngresso = "";
     salario = 0;
 }
-mFuncionario::mFuncionario(int codigo, string nome, string endereco, string telefone, string dataIngresso, float salario, int desig){
+mFuncionario::mFuncionario(string codigo, string nome, string endereco, string telefone, string dataIngresso, float salario, int desig){
     this->codigo = codigo;
     this->desig = desig;
     this->nome = nome;
@@ -72,7 +72,7 @@ mFuncionario::mFuncionario(int codigo, string nome, string endereco, string tele
     this->dataIngresso = dataIngresso;
     this->salario = salario;
 };
-int mFuncionario::getCodigo(){
+string mFuncionario::getCodigo(){
     return this->codigo;
 };
 int mFuncionario::getDesig(){
@@ -95,7 +95,7 @@ float mFuncionario::getSalario(){
 };
 
 //Setters
-void mFuncionario::setCodigo(int codigo){
+void mFuncionario::setCodigo(string codigo){
     this->codigo = codigo;
 };
 void mFuncionario::setDesig(int desig){
@@ -239,6 +239,64 @@ void c3Presidente::setFormacaoMax(string FormacaoMax){
 string c3Presidente::getFormacaoMax(){
     return FormacaoMax;
 };
+
+
+#include <fstream>
+class GerenciaBD : public c3Presidente, ofstream{
+
+    public:
+        GerenciaBD();
+        virtual ~GerenciaBD();
+        void listarFuncionarios();
+        void listarFuncionarios(int desig);
+        void listarFuncionarios(string nome);
+        void cadastrarOperador(mFuncionario novo);
+        void cadastrarGerente(c1Gerente novo);
+        void cadastrarDiretor(c2Diretor novo);
+        void cadastrarPresidente(c3Presidente novo);
+        void consulta(int tipo); // 1 - codigo, 2 - nome, 3 - desig, 4 - salario, 5 - data de ingresso, 6 - area de supervisao, 7 - area de formacao, 8 - formMax
+    protected:
+        ofstream arq;
+};
+
+
+GerenciaBD::GerenciaBD(){
+};
+GerenciaBD::~GerenciaBD(){
+
+};
+void GerenciaBD::listarFuncionarios(){
+    //imprimindo cada linha do arquivo que começa com o caracter 'O'
+    string linha;
+    ifstream arq("funcionarios.txt");
+    if(arq.is_open()){
+        while(getline(arq, linha)){
+            if(linha[0] == 'O'){
+                cout << linha << endl;
+            }
+        }
+    }
+    else{
+        cout << "Erro ao abrir arquivo" << endl;
+    }
+};
+//void GerenciaBD::listarFuncionarios(int desig);
+//void GerenciaBD::listarFuncionarios(string nome);
+void GerenciaBD::cadastrarOperador(mFuncionario novo){
+    arq.open("funcionarios.txt", ios::app);
+    string operador = "O,"+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+","+to_string(novo.getDesig())+"\n";
+    // abrindo o arquivo:
+    // escrevendo a frase no arquivo:
+    arq << operador;
+    // fechando o arquivo:
+    arq.close();
+};
+
+
+
+
+
+
 /// Implementação:
 
 
@@ -251,14 +309,94 @@ string c3Presidente::getFormacaoMax(){
 
 // Inicio da main:
 
+/*
+
+Tipos para trabalhar com arquivos:
+– ofstream – para escrever em um arquivo
+– ifstream – para ler dados de um arquivo
+– fstream – pode ser utilizada tanto para leitura quanto para
+escrita em arquivos
+
+*/
+
+
+/*
+OPERADOR: Func, ID, nome, end, tel,dIngresso, salario
+(O,20000,Cleitim da Silva,sargentoAdait,83988-88,DD-MM-AAAA,1231241)
+*/
 
 int main (){
     // Criação de um objeto do tipo funcionario e cout de todos os seus atributos:
-    c3Presidente presidente = c3Presidente();
+    /*c3Presidente presidente = c3Presidente();
     cout << "Nome: " << presidente.getNome() << endl;
     cout << "Salario: " << presidente.getSalario() << endl;
     cout << "Area Supervisao: " << presidente.getAreaSupervisao() << endl;
     cout << "TESTE DE ALTERAÇAO 2.2.55";
+    */
+
+    cout << "O que você deseja fazer?\n";
+    cout << "1 - Adicionar funcionario\n";
+    cout << "2 - Aumentar salario\n";
+    cout << "3 - Listar funcionarios\n";
+    cout << "4 - Sair\n";
+    int opcao;
+    cin >> opcao;
+    string codigo;
+    string nome;
+    string endereco;
+    string telefone;
+    string dataIngresso;
+    float salario;
+    int desig;
+    
+    if(opcao==1){
+    
+        cout << "Adicionar funcionario\n";
+        cout << "Digite o codigo do funcionario: ";
+        
+        cin >> codigo;
+        cout << "Digite o nome do funcionario: ";
+
+        cin.ignore();
+
+        
+        getline(cin, nome);
+        
+        cout << "Digite o endereco do funcionario: \n";
+        
+        
+        getline(cin, endereco);
+        cout << "Digite o telefone do funcionario: \n";
+        
+        
+        getline(cin, telefone);
+        
+        cout << "Digite a data de ingresso do funcionario: \n";
+            
+        getline(cin, dataIngresso);
+        cout << "Digite o salario do funcionario: \n";
+        
+        cin >> salario;
+        cout << "Digite o codigo do desig do funcionario: \n";
+        
+        cin >> desig;
+        GerenciaBD gerencia;
+        mFuncionario temp;
+        temp.setCodigo(codigo);
+        temp.setNome(nome);
+        temp.setEndereco(endereco);
+        temp.setTelefone(telefone);
+        temp.setDataIngresso(dataIngresso);
+        temp.setSalario(salario);
+        temp.setDesig(desig);
+        gerencia.cadastrarOperador(temp);
+    }
+
+    cout << "Ok!";
+
+
+
+
 
 }
  

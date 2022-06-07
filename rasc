@@ -34,7 +34,12 @@ a) Adicionar um novo funcionário: Todos os atributos dos funcionários devem se
 armazenados no objeto correspondente. // Parcialmente 
 
 ;------------------------------------------------------------------------------
+BANCO DE DADOS:
 
+OPERADOR: Func, ID, nome, end, tel,dIngresso, salario
+(O,20000,Cleitim da Silva,sargentoAdait,83988-88,DD-MM-AAAA,1231241)
+
+;------------------------------------------------------------------------------
 
 
 Além disso, este projeto deve ter outras classes e subclasses, crie classes para gerenciar os
