@@ -23,7 +23,7 @@ class mFuncionario
     public:
         mFuncionario();
         mFuncionario(int codigo, string nome, string endereco, string telefone, string dataIngresso, float salario, int desig);
-        virtual ~mFuncionario();
+      
         
         //Getters
         int getCodigo();
