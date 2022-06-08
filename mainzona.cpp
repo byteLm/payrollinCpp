@@ -411,9 +411,20 @@ void GerenciaBD::removerFuncionario(int codigo){
     ifstream arq("funcionarios.txt");
     if(arq.is_open()){
         while(getline(arq, linha)){
-            if(linha[0] == '0'){
-                cout << linha << endl;
+            if(linha.find(codigo1) != string::npos){
+                cout << "Removendo funcionario...\n";
+                cout << "Você tem certeza?";
+                char opcao;
+                cin >> opcao;
+                if(opcao == 's'){
+                    linha = "REMOVIDO";
+                }
+                cout << "Funcionario removido com sucesso!\n";
             }
+            else{
+                cout << "Funcionario nao encontrado!\n";
+            }
+            
         }
     }
     else{
@@ -467,9 +478,10 @@ int main (){
 
     cout << "O que você deseja fazer?\n";
     cout << "1 - Adicionar funcionario\n";
-    cout << "2 - Aumentar salario\n";
-    cout << "3 - Listar funcionarios\n";
-    cout << "4 - Sair\n";
+    cout << "2 - Remover funcionario\n";
+    cout << "3 - Aumentar salario\n";
+    cout << "4 - Listar funcionarios\n";
+    cout << "5 - Sair\n";
     int opcao, desig;
 
     cin >> opcao;
@@ -484,6 +496,11 @@ int main (){
         cout << "4 - Presidente\n";
         cin >> desig;
         gerencia.cadastrarFuncionario(desig);
+    }else if(opcao == 2){
+        GerenciaBD gerencia;
+        cout << "Digite o codigo do funcionario: \n";
+        cin >> desig;
+        gerencia.removerFuncionario(desig);
     }else if(opcao == 3){
         GerenciaBD gerencia;
         gerencia.listarFuncionarios();
