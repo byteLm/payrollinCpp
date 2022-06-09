@@ -1,5 +1,4 @@
-#include "classesBase\c3Presidente\presidente.h"
-
+#include "presidente.h"
 
 c3Presidente::c3Presidente(){
     this->FormacaoMax = "";
@@ -30,5 +29,3 @@ void c3Presidente::setFormacaoMax(string FormacaoMax){
 string c3Presidente::getFormacaoMax(){
     return FormacaoMax;
 };
-
- 

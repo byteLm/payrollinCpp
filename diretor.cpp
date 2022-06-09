@@ -1,8 +1,6 @@
 #include "diretor.h"
 
 
-
-   
 c2Diretor::c2Diretor(){
     this->areaFormacao = "";
     this->codigo = codigo;
@@ -32,8 +30,4 @@ void c2Diretor::setAreaFormacao(string areaFormacao){
 string c2Diretor::getAreaFormacao(){
     return areaFormacao;
 };
-
-
-
-
 

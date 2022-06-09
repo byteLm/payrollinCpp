@@ -1,4 +1,4 @@
-
+//Classe gerente herda de mFuncionario
 #include "gerente.h"
 
 c1Gerente::c1Gerente(){
@@ -15,7 +15,6 @@ c1Gerente::c1Gerente(int codigo, string nome, string endereco, string telefone, 
     this->areaSupervisao = AreaSupervisao;
 
 }
-
 void c1Gerente::setAreaSupervisao(string areaSuperfisao){
     this->areaSupervisao = areaSuperfisao;
 }

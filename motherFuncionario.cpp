@@ -1,9 +1,6 @@
 #include "motherFuncionario.h"
-using namespace std;
-
-
 mFuncionario::mFuncionario(){
-    codigo = 0;
+    codigo = "0";
     desig = 0;
     nome = "";
     endereco = "";
@@ -11,7 +8,7 @@ mFuncionario::mFuncionario(){
     dataIngresso = "";
     salario = 0;
 }
-mFuncionario::mFuncionario(int codigo, string nome, string endereco, string telefone, string dataIngresso, float salario, int desig){
+mFuncionario::mFuncionario(string codigo, string nome, string endereco, string telefone, string dataIngresso, float salario, int desig){
     this->codigo = codigo;
     this->desig = desig;
     this->nome = nome;
@@ -20,9 +17,7 @@ mFuncionario::mFuncionario(int codigo, string nome, string endereco, string tele
     this->dataIngresso = dataIngresso;
     this->salario = salario;
 };
-    
-
-int mFuncionario::getCodigo(){
+string mFuncionario::getCodigo(){
     return this->codigo;
 };
 int mFuncionario::getDesig(){
@@ -45,7 +40,7 @@ float mFuncionario::getSalario(){
 };
 
 //Setters
-void mFuncionario::setCodigo(int codigo){
+void mFuncionario::setCodigo(string codigo){
     this->codigo = codigo;
 };
 void mFuncionario::setDesig(int desig){
@@ -66,4 +61,3 @@ void mFuncionario::setDataIngresso(string dataIngresso){
 void mFuncionario::setSalario(float salario){
     this->salario = salario;
 };
-
