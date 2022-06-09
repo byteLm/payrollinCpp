@@ -254,7 +254,7 @@ class GerenciaBD : public c3Presidente, ofstream{
         void cadastrarGerente(c1Gerente novo);
         void cadastrarDiretor(c2Diretor novo);
         void cadastrarPresidente(c3Presidente novo);
-        void removerFuncionario(int codigo);
+        void removerFuncionario(string codigo1);
         void consulta(int tipo); // 1 - codigo, 2 - nome, 3 - desig, 4 - salario, 5 - data de ingresso, 6 - area de supervisao, 7 - area de formacao, 8 - formMax
     protected:
         ofstream arq;
@@ -302,6 +302,7 @@ void GerenciaBD::listarFuncionarios(){
 especialista, mestre, doutor...)
 */
 void GerenciaBD::cadastrarFuncionario(int tipo){
+    fstream arq;
     arq.open("funcionarios.txt", ios::app);
     string funcionario;
     string codigo;
@@ -324,7 +325,7 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
             cout << "Digite o salario do funcionario: \n";
             cin >> salario;
             // Para o arquivo:
-            funcionario = to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+"\n";            
+            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario);            
             arq << funcionario;
             arq.close();
             break;
@@ -346,7 +347,7 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
             cout << "Digite o salario do gerente: \n";
             cin >> salario;
             // Para o arquivo:
-            funcionario = to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaSupervisao+"\n";            
+            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaSupervisao;            
             arq << funcionario;
             arq.close();
             break;
@@ -370,7 +371,7 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
             cout << "Digite o salario do diretor: \n";
             cin >> salario;
             // Para o arquivo:
-            funcionario = to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaSupervisao+","+areaFormacao+"\n";            
+            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaSupervisao+","+areaFormacao;            
             arq << funcionario;
             arq.close();
             break;
@@ -394,7 +395,7 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
             cout << "Digite o salario do presidente: \n";
             cin >> salario;
             // Para o arquivo:
-            funcionario = to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaFormacao+","+formMax+"\n";            
+            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaFormacao+","+formMax;           
             arq << funcionario;
             arq.close();
             break;
@@ -402,35 +403,41 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
     
 
     };
-void GerenciaBD::removerFuncionario(int codigo){
-    arq.open("funcionarios.txt", ios::in);
-    string codigo1;
-    codigo1 = to_string(codigo);
-
+void GerenciaBD::removerFuncionario(string codigo1){ 
     string linha;
-    ifstream arq("funcionarios.txt");
-    if(arq.is_open()){
-        while(getline(arq, linha)){
-            if(linha.find(codigo1) != string::npos){
-                cout << "Removendo funcionario...\n";
-                cout << "Você tem certeza?";
-                char opcao;
-                cin >> opcao;
-                if(opcao == 's'){
-                    linha = "REMOVIDO";
+    int funcEncontrado = 0;
+
+
+
+    cout << "Removendo funcionario...\n";
+    cout << "Você tem certeza?";
+    char opcao;
+    cin >> opcao;
+    if(opcao == 's'){
+        fstream arq;
+        arq.open("funcionarios.txt", ios::in);
+        if(arq.is_open()){
+            fstream arq2;
+            arq2.open("funcionarios2.txt", ios::out);
+            while(getline(arq, linha)){
+                if(linha.find(codigo1) != string::npos){
+                    funcEncontrado = 1;
                 }
+                else{
+                    arq2 << linha+"\n";
+                } 
+            }
+            if(funcEncontrado==1){
+                arq.close();
+                arq2.close();
+                remove("funcionarios.txt");
+                rename("funcionarios2.txt", "funcionarios.txt");  
                 cout << "Funcionario removido com sucesso!\n";
+            }else{
+                cout << "Funcionario nao encontrado!\n";   
+            }   
             }
-            else{
-                cout << "Funcionario nao encontrado!\n";
-            }
-            
-        }
     }
-    else{
-        cout << "Erro ao abrir arquivo" << endl;
-    }
-    arq.close();
 };
 
 
@@ -475,38 +482,43 @@ int main (){
     cout << "Area Supervisao: " << presidente.getAreaSupervisao() << endl;
     cout << "TESTE DE ALTERAÇAO 2.2.55";
     */
+    while(1){
 
-    cout << "O que você deseja fazer?\n";
-    cout << "1 - Adicionar funcionario\n";
-    cout << "2 - Remover funcionario\n";
-    cout << "3 - Aumentar salario\n";
-    cout << "4 - Listar funcionarios\n";
-    cout << "5 - Sair\n";
-    int opcao, desig;
+        
+        cout << "O que você deseja fazer?\n";
+        cout << "1 - Adicionar funcionario\n";
+        cout << "2 - Remover funcionario\n";
+        cout << "3 - Aumentar salario\n";
+        cout << "4 - Listar funcionarios\n";
+        cout << "5 - Sair\n";
+        int opcao, desig;
+        string temp;
+        cin >> opcao;
+        
+        
+        if(opcao==1){
+            GerenciaBD gerencia;
+            cout << "Digite o tipo de funcionario: \n";
+            cout << "1 - Operador\n";
+            cout << "2 - Gerente\n";
+            cout << "3 - Diretor\n";
+            cout << "4 - Presidente\n";
+            cin >> desig;
+            gerencia.cadastrarFuncionario(desig);
+        }else if(opcao == 2){
+            GerenciaBD gerencia;
+            cout << "Digite o codigo do funcionario: \n";
+            cin.ignore();
+            getline(cin, temp);
+            gerencia.removerFuncionario(temp);
+        }else if(opcao == 3){
+            GerenciaBD gerencia;
+            gerencia.listarFuncionarios();
+        }
 
-    cin >> opcao;
-    
-    
-    if(opcao==1){
-        GerenciaBD gerencia;
-        cout << "Digite o tipo de funcionario: \n";
-        cout << "1 - Operador\n";
-        cout << "2 - Gerente\n";
-        cout << "3 - Diretor\n";
-        cout << "4 - Presidente\n";
-        cin >> desig;
-        gerencia.cadastrarFuncionario(desig);
-    }else if(opcao == 2){
-        GerenciaBD gerencia;
-        cout << "Digite o codigo do funcionario: \n";
-        cin >> desig;
-        gerencia.removerFuncionario(desig);
-    }else if(opcao == 3){
-        GerenciaBD gerencia;
-        gerencia.listarFuncionarios();
+        cout << "Ok!";
     }
 
-    cout << "Ok!";
 
 
 
