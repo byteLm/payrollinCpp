@@ -82,7 +82,7 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
             cout << "Digite a data de ingresso do gerente: \n";
             getline(cin, dataIngresso);
             cout << "Digite a área de supervisão do gerente: \n";
-            cin >> areaSupervisao;
+            getline(cin, areaSupervisao);
             cout << "Digite o salario do gerente: \n";
             cin >> salario;
             // Para o arquivo:
@@ -104,9 +104,9 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
             cout << "Digite a data de ingresso do diretor: \n";
             getline(cin, dataIngresso);
             cout << "Digite a área de supervisão do diretor: \n";
-            cin >> areaSupervisao;
+            getline(cin, areaSupervisao);
             cout << "Digite a área de formação do diretor: \n";
-            cin >> areaFormacao;
+            getline(cin, areaFormacao);
             cout << "Digite o salario do diretor: \n";
             cin >> salario;
             // Para o arquivo:
@@ -128,9 +128,9 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
             cout << "Digite a data de ingresso do presidente: \n";
             getline(cin, dataIngresso);
             cout << "Digite a área de formação do presidente: \n";
-            cin >> areaFormacao;
+            getline(cin, areaFormacao);
             cout << "Digite a formação acadêmica máxima do presidente: \n";
-            cin >> formMax;
+            getline(cin, formMax);
             cout << "Digite o salario do presidente: \n";
             cin >> salario;
             // Para o arquivo:
@@ -191,8 +191,6 @@ void GerenciaBD::consulta(string codigo1){
         while(getline(arq, linha)){
             if(linha.find(codigo1) != string::npos){
                 funcEncontrado = 1;
-
-
                 string codigo = "";
                 string nome = "";
                 string endereco = "";
@@ -202,15 +200,14 @@ void GerenciaBD::consulta(string codigo1){
                 string areaSupervisao = "";
                 string areaFormacao = "";
                 string formMax = "";
-                cout << linha[0];
+                
                 if(linha[0]=='0'){
-   
-
                     int atributos = 2;
                     tempOperario.setDesig(0);
 
                     cout << "Funcionario encontrado!\n";
                     for(int i=2; linha[i]!='!'; i++){ // I começando em 2 porque 0 é o idFunc, 1 é a vírgula.
+                        
                         if(linha[i]=='!'){
                         }else if(linha[i]==','){
                             atributos++;
@@ -220,7 +217,7 @@ void GerenciaBD::consulta(string codigo1){
                             switch(atributos){
                                 case 2:
                                     codigo = codigo + linha[i];
-                                    continue;
+                                    break;
                                 case 3:
                                     nome = nome + linha[i];
                                     break;
