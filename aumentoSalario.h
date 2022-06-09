@@ -9,7 +9,7 @@ rotina de aumento de salário para todos os funcionários. Sendo os percentuais 
 */
 
 
-#include "classesBase\c3Presidente\presidente.h"
+#include "presidente.h"
 class aumentoSalario : public c1Gerente
 {
     public:

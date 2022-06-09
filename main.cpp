@@ -40,6 +40,10 @@ int main (){
         }else if(opcao == 3){
             GerenciaBD gerencia;
             gerencia.listarFuncionarios();
+        }else if(opcao == 4){
+            GerenciaBD gerencia;
+            string temp = "20210025323";
+            gerencia.consulta(temp);
         }
 
         cout << "Ok!";

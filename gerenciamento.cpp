@@ -64,7 +64,7 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
             cout << "Digite o salario do funcionario: \n";
             cin >> salario;
             // Para o arquivo:
-            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario);            
+            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+"!\n";            
             arq << funcionario;
             arq.close();
             break;
@@ -86,7 +86,7 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
             cout << "Digite o salario do gerente: \n";
             cin >> salario;
             // Para o arquivo:
-            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaSupervisao;            
+            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaSupervisao+"!\n";            
             arq << funcionario;
             arq.close();
             break;
@@ -110,7 +110,7 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
             cout << "Digite o salario do diretor: \n";
             cin >> salario;
             // Para o arquivo:
-            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaSupervisao+","+areaFormacao;            
+            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaSupervisao+","+areaFormacao+"!\n";            
             arq << funcionario;
             arq.close();
             break;
@@ -134,7 +134,7 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
             cout << "Digite o salario do presidente: \n";
             cin >> salario;
             // Para o arquivo:
-            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaFormacao+","+formMax;           
+            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaFormacao+","+formMax+"!\n";           
             arq << funcionario;
             arq.close();
             break;
@@ -178,7 +178,95 @@ void GerenciaBD::removerFuncionario(string codigo1){
             }
     }
 };
+void GerenciaBD::consulta(string codigo1){
+    
+    string linha;
+    int funcEncontrado = 0;
 
+    cout << "Procurando funcionario...\n";    
+
+    fstream arq;
+    arq.open("funcionarios.txt", ios::in);
+    if(arq.is_open()){
+        while(getline(arq, linha)){
+            if(linha.find(codigo1) != string::npos){
+                funcEncontrado = 1;
+
+
+                string codigo = "";
+                string nome = "";
+                string endereco = "";
+                string telefone = "";
+                string dataIngresso = "";
+                string salario = "";
+                string areaSupervisao = "";
+                string areaFormacao = "";
+                string formMax = "";
+                cout << linha[0];
+                if(linha[0]=='0'){
+   
+
+                    int atributos = 2;
+                    tempOperario.setDesig(0);
+
+                    cout << "Funcionario encontrado!\n";
+                    for(int i=2; linha[i]!='!'; i++){ // I começando em 2 porque 0 é o idFunc, 1 é a vírgula.
+                        if(linha[i]=='!'){
+                        }else if(linha[i]==','){
+                            atributos++;
+                            continue;
+                        }else{
+                            //funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaFormacao+","+formMax+"!\n";       
+                            switch(atributos){
+                                case 2:
+                                    codigo = codigo + linha[i];
+                                    continue;
+                                case 3:
+                                    nome = nome + linha[i];
+                                    break;
+                                case 4:
+                                    endereco = endereco + linha[i];
+                                    break;
+                                case 5:
+                                    telefone = telefone + linha[i];
+                                    break;
+                                case 6:
+                                    dataIngresso = dataIngresso + linha[i];
+                                    break;
+                                case 7:
+                                    salario = salario + linha[i];
+                                    break;
+                                case 8: 
+                                    areaFormacao = areaFormacao + linha[i];     
+                                    break;
+                                case 9: 
+                                    formMax = formMax + linha[i];
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        arq.close();
+        if(funcEncontrado==0){
+            cout << "Funcionario nao encontrado!\n";
+        }else{
+            cout << "Codigo: " << codigo << "\n";
+            cout << "Nome: " << nome << "\n";
+            cout << "Endereco: " << endereco << "\n";
+            cout << "Telefone: " << telefone << "\n";
+            cout << "Data de ingresso: " << dataIngresso << "\n";
+            cout << "Salario: " << salario << "\n";
+            cout << "Area de supervisao: " << areaSupervisao << "\n";
+            cout << "Area de formacao: " << areaFormacao << "\n";
+        }
+        
+        
+    }      
+}
 
 
 

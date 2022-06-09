@@ -1,4 +1,4 @@
-#include "features\aumentoSalario\aumentoSalario.h"
+#include "aumentoSalario.h"
 
 
 aumentoSalario::aumentoSalario(mFuncionario operador){

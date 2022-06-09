@@ -30,8 +30,7 @@ rotina de aumento de salário para todos os funcionários. Sendo os percentuais 
 ● Diretor: 20%
 ● Presidente 30%
 
-a) Adicionar um novo funcionário: Todos os atributos dos funcionários devem ser lidos e
-armazenados no objeto correspondente. // Parcialmente 
+
 
 ;------------------------------------------------------------------------------
 BANCO DE DADOS:
@@ -39,6 +38,12 @@ BANCO DE DADOS:
 OPERADOR: Func, ID, nome, end, tel,dIngresso, salario
 (O,20000,Cleitim da Silva,sargentoAdait,83988-88,DD-MM-AAAA,1231241)
 
+c) Excluir um registro de funcionário: O registro de um funcionário pode ser excluído usando o
+código do funcionário. Uma mensagem de confirmação de exclusão mostra se o usuário
+realmente deseja excluir o registro do arquivo. Caso o funcionário seja um presidente ou
+diretor, ele não poderá ser removido.
+a) Adicionar um novo funcionário: Todos os atributos dos funcionários devem ser lidos e
+armazenados no objeto correspondente
 ;------------------------------------------------------------------------------
 
 
@@ -50,10 +55,7 @@ Requisitos Gerais:
 b) Modificar ou editar um registro de funcionário: Os usuários podem editar o número de
 código do funcionário, data de ingresso (dia, mês e ano), nome, endereço, telefone, designação
 e salário.
-c) Excluir um registro de funcionário: O registro de um funcionário pode ser excluído usando o
-código do funcionário. Uma mensagem de confirmação de exclusão mostra se o usuário
-realmente deseja excluir o registro do arquivo. Caso o funcionário seja um presidente ou
-diretor, ele não poderá ser removido.
+
 d) Exibir registro de funcionário: Ao inserir o número de código do funcionário, os usuários
 podem acessar todas as informações fornecidas relacionadas a um determinado funcionário
 por meio desta função.
