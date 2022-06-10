@@ -178,91 +178,92 @@ void GerenciaBD::removerFuncionario(string codigo1){
             }
     }
 };
+
 void GerenciaBD::consulta(string codigo1){
-    
     string linha;
+    string tempString = "";
     int funcEncontrado = 0;
-
-    cout << "Procurando funcionario...\n";    
-
+    char ch;
+    int atributos = 2;
     fstream arq;
+    string codigo = "";
+    string salario = "";
+    string nome = "";
+    string endereco = "";
+    string telefone = "";
+    string dataIngresso = "";
+    string areaSupervisao = "";
+    string areaFormacao = "";
+    string formMax = "";
+
+
+    cout << "Consultando funcionario...\n";
+    
+    
     arq.open("funcionarios.txt", ios::in);
+    
     if(arq.is_open()){
-        while(getline(arq, linha)){
+        while(getline(arq, linha)){        
             if(linha.find(codigo1) != string::npos){
                 funcEncontrado = 1;
-                string codigo = "";
-                string nome = "";
-                string endereco = "";
-                string telefone = "";
-                string dataIngresso = "";
-                string salario = "";
-                string areaSupervisao = "";
-                string areaFormacao = "";
-                string formMax = "";
-                
-                if(linha[0]=='0'){
-                    int atributos = 2;
+                if(linha[0]=='1'){
+                    cout<< "\nOperario!\n";
                     tempOperario.setDesig(0);
+                    
+                    tempString = linha;
+                    arq.close();
 
-                    cout << "Funcionario encontrado!\n";
-                    for(int i=2; linha[i]!='!'; i++){ // I começando em 2 porque 0 é o idFunc, 1 é a vírgula.
-                        
-                        if(linha[i]=='!'){
-                        }else if(linha[i]==','){
+                    for(int i = 2; i;i++){
+                        if(tempString[i]==','){
                             atributos++;
-                            continue;
                         }else{
-                            //funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaFormacao+","+formMax+"!\n";       
                             switch(atributos){
                                 case 2:
-                                    codigo = codigo + linha[i];
+                                    codigo += tempString[i];
                                     break;
                                 case 3:
-                                    nome = nome + linha[i];
+                                    nome += tempString[i];
                                     break;
                                 case 4:
-                                    endereco = endereco + linha[i];
+                                    endereco += tempString[i];
                                     break;
                                 case 5:
-                                    telefone = telefone + linha[i];
+                                    telefone += tempString[i];
                                     break;
                                 case 6:
-                                    dataIngresso = dataIngresso + linha[i];
+                                    dataIngresso += tempString[i];
                                     break;
                                 case 7:
-                                    salario = salario + linha[i];
+                                    salario += tempString[i];
                                     break;
-                                case 8: 
-                                    areaFormacao = areaFormacao + linha[i];     
+                                case 8:
+                                    
                                     break;
-                                case 9: 
-                                    formMax = formMax + linha[i];
-                                    break;
-                                default:
-                                    break;
+                                
                             }
+                            if(tempString[i]=='!'){
+                                tempOperario.setCodigo(codigo);
+                                tempOperario.setNome(nome);
+                                tempOperario.setEndereco(endereco);
+                                tempOperario.setTelefone(telefone);
+                                tempOperario.setDataIngresso(dataIngresso);
+                                tempOperario.setSalario(stof(salario));
+                                break;
+                            }
+
                         }
+                        
                     }
+                    cout << "Codigo: " << tempOperario.getCodigo() << "\n";
+                    cout << "Nome: " << tempOperario.getNome() << "\n";
+                    cout << "Endereco: " << tempOperario.getEndereco() << "\n";
+                    cout << "Telefone: " << tempOperario.getTelefone() << "\n";
+                    cout << "Data de ingresso: " << tempOperario.getDataIngresso() << "\n";
+                    cout << "Salario: " << tempOperario.getSalario() << "\n";
                 }
             }
+        } 
         }
-        arq.close();
-        if(funcEncontrado==0){
-            cout << "Funcionario nao encontrado!\n";
-        }else{
-            cout << "Codigo: " << codigo << "\n";
-            cout << "Nome: " << nome << "\n";
-            cout << "Endereco: " << endereco << "\n";
-            cout << "Telefone: " << telefone << "\n";
-            cout << "Data de ingresso: " << dataIngresso << "\n";
-            cout << "Salario: " << salario << "\n";
-            cout << "Area de supervisao: " << areaSupervisao << "\n";
-            cout << "Area de formacao: " << areaFormacao << "\n";
-        }
-        
-        
-    }      
 }
 
 
