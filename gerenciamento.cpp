@@ -254,17 +254,181 @@ void GerenciaBD::consulta(string codigo1){
                         }
                         
                     }
-                    cout << "Codigo: " << tempOperario.getCodigo() << "\n";
-                    cout << "Nome: " << tempOperario.getNome() << "\n";
-                    cout << "Endereco: " << tempOperario.getEndereco() << "\n";
-                    cout << "Telefone: " << tempOperario.getTelefone() << "\n";
-                    cout << "Data de ingresso: " << tempOperario.getDataIngresso() << "\n";
-                    cout << "Salario: " << tempOperario.getSalario() << "\n";
                 }
+            
+                if(linha[0]=='2'){
+                    cout<< "\nGerente!\n";
+                    tempGerente.setDesig(0);
+                    
+                    tempString = linha;
+                    arq.close();
+
+                    for(int i = 2; i;i++){
+                        if(tempString[i]==','){
+                            atributos++;
+                        }else{
+                            switch(atributos){
+                                case 2:
+                                    codigo += tempString[i];
+                                    break;
+                                case 3:
+                                    nome += tempString[i];
+                                    break;
+                                case 4:
+                                    endereco += tempString[i];
+                                    break;
+                                case 5:
+                                    telefone += tempString[i];
+                                    break;
+                                case 6:
+                                    dataIngresso += tempString[i];
+                                    break;
+                                case 7:
+                                    salario += tempString[i];
+                                    break;
+                                case 8:
+                                    areaSupervisao += tempString[i];
+                                    break;
+                                case 9:
+                                    break;    
+                            }
+                            if(tempString[i]=='!'){
+                                tempGerente.setCodigo(codigo);
+                                tempGerente.setNome(nome);
+                                tempGerente.setEndereco(endereco);
+                                tempGerente.setTelefone(telefone);
+                                tempGerente.setDataIngresso(dataIngresso);
+                                tempGerente.setSalario(stof(salario));
+                                tempGerente.setAreaSupervisao(areaSupervisao);
+                                break;
+                            }
+
+                        }
+                        
+                    }
+                }
+            
+                if(linha[0]=='3'){
+                    cout<< "\nDiretor!\n";
+                    tempDiretor.setDesig(0);
+                    
+                    tempString = linha;
+                    arq.close();
+
+                    for(int i = 2; i;i++){
+                        if(tempString[i]==','){
+                            atributos++;
+                        }else{
+                            switch(atributos){
+                                case 2:
+                                    codigo += tempString[i];
+                                    break;
+                                case 3:
+                                    nome += tempString[i];
+                                    break;
+                                case 4:
+                                    endereco += tempString[i];
+                                    break;
+                                case 5:
+                                    telefone += tempString[i];
+                                    break;
+                                case 6:
+                                    dataIngresso += tempString[i];
+                                    break;
+                                case 7:
+                                    salario += tempString[i];
+                                    break;
+                                case 8:
+                                    areaSupervisao += tempString[i];
+                                    break;
+                                case 9:
+                                    areaFormacao += tempString[i];
+                                    break;   
+                                case 10:
+                                    break; 
+                            }
+                            if(tempString[i]=='!'){
+                                tempDiretor.setCodigo(codigo);
+                                tempDiretor.setNome(nome);
+                                tempDiretor.setEndereco(endereco);
+                                tempDiretor.setTelefone(telefone);
+                                tempDiretor.setDataIngresso(dataIngresso);
+                                tempDiretor.setSalario(stof(salario));
+                                tempDiretor.setAreaSupervisao(areaSupervisao);
+                                tempDiretor.setAreaFormacao(areaFormacao);
+                                break;
+                            }
+
+                        }
+                        
+                    }
+                }
+                if(linha[0]=='4'){
+                    cout<<"\nPresidente!\n";
+                    tempPresidente.setDesig(4);
+                        
+                    tempString = linha;
+                    arq.close();
+
+                    for(int i = 2; i;i++){
+                        if(tempString[i]==','){
+                            atributos++;
+                        }else{
+                            switch(atributos){
+                                case 2:
+                                    codigo += tempString[i];
+                                    break;
+                                case 3:
+                                    nome += tempString[i];
+                                    break;
+                                case 4:
+                                    endereco += tempString[i];
+                                    break;
+                                case 5:
+                                    telefone += tempString[i];
+                                    break;
+                                case 6:
+                                    dataIngresso += tempString[i];
+                                    break;
+                                case 7:
+                                    salario += tempString[i];
+                                    break;
+                                case 8:
+                                    areaSupervisao += tempString[i];
+                                    break;
+                                case 9:
+                                    areaFormacao += tempString[i];
+                                    break;  
+                                case 10:
+                                    formMax += tempString[i];
+                                case 11:
+                                    break; 
+                            }
+                            if(tempString[i]=='!'){
+                                tempPresidente.setCodigo(codigo);
+                                tempPresidente.setNome(nome);
+                                tempPresidente.setEndereco(endereco);
+                                tempPresidente.setTelefone(telefone);
+                                tempPresidente.setDataIngresso(dataIngresso);
+                                tempPresidente.setSalario(stof(salario));
+                                tempPresidente.setAreaSupervisao(areaSupervisao);
+                                tempPresidente.setAreaFormacao(areaFormacao);
+                                tempPresidente.setFormacaoMax(formMax);
+                                break;
+                            }
+
+                        }
+                        
+                    }
+                }
+
+                }
+                
             }
-        } 
-        }
+    }
+   
 }
+
 
 
 
