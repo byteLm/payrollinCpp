@@ -22,5 +22,6 @@ class GerenciaBD : public c3Presidente, ofstream{
         c1Gerente tempGerente;
         c2Diretor tempDiretor;
         c3Presidente tempPresidente;
+        
 
 };
