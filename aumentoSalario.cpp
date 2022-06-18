@@ -1,20 +1,29 @@
 #include "aumentoSalario.h"
 
 
-aumentoSalario::aumentoSalario(mFuncionario operador){
-    float salario = operador.getSalario();
-    operador.setSalario(salario*(1+percentuaLOperador));
+aumentoSalario::aumentoSalario(){
+};
 
+
+aumentoSalario::~aumentoSalario(){
 };
-aumentoSalario::aumentoSalario(c1Gerente gerente){
-    float salario = gerente.getSalario();
-    gerente.setSalario(salario*(1+percentualGerente));
-};
-aumentoSalario::aumentoSalario(c2Diretor diretor){
-    float salario = diretor.getSalario();
-    diretor.setSalario(salario*(1+percentualDiretor));
-};
-aumentoSalario::aumentoSalario(c3Presidente presidente){
-    float salario = presidente.getSalario();
-    presidente.setSalario(salario*(1+percentualPresidente));
-};
+
+float aumentoSalario::aumentaSalario(int tipo, float salario){
+    switch(tipo){
+        case 1:
+            return salario * (1+this->percentuaLOperador);
+            break;
+        case 2:
+            return salario * (1+this->percentualGerente);
+            break;
+        case 3:
+            return salario * (1+this->percentualDiretor);
+            break;
+        case 4:
+            return salario * (1+this->percentualPresidente);
+            break;
+        default:
+            return salario;
+            break;
+    }
+}

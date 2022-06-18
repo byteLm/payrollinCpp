@@ -21,3 +21,14 @@ void c1Gerente::setAreaSupervisao(string areaSuperfisao){
 string c1Gerente::getAreaSupervisao(){
     return areaSupervisao;
 }
+void c1Gerente::imprime(){
+    cout << "----------------------------------------------------" << endl;
+    cout << "Gerente ("+this->getCodigo()+")" << endl;
+    cout << "Nome: " << this->getNome() << endl;
+    cout << "Salario: " << this->getSalario() << endl;
+    cout << "Telefone: " << this->getTelefone() << endl;
+    cout << "Endereco: " << this->getEndereco() << endl;
+    cout << "Data de ingresso: " << this->getDataIngresso() << endl;
+    cout << "Area de supervisao: " << this->getAreaSupervisao() << endl;
+    cout << "----------------------------------------------------" << endl;
+}

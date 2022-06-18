@@ -61,3 +61,14 @@ void mFuncionario::setDataIngresso(string dataIngresso){
 void mFuncionario::setSalario(float salario){
     this->salario = salario;
 };
+
+void mFuncionario::imprime(){
+    cout << "----------------------------------------------------" << endl;
+    cout << "Operario ("+this->getCodigo()+")" << endl;
+    cout << "Nome: " << this->getNome() << endl;
+    cout << "Salario: " << this->getSalario() << endl;
+    cout << "Telefone: " << this->getTelefone() << endl;
+    cout << "Endereco: " << this->getEndereco() << endl;
+    cout << "Data de ingresso: " << this->getDataIngresso() << endl;
+    cout << "----------------------------------------------------" << endl;
+}

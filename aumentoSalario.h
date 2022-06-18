@@ -13,10 +13,10 @@ rotina de aumento de salário para todos os funcionários. Sendo os percentuais 
 class aumentoSalario : public c1Gerente
 {
     public:
-        aumentoSalario(mFuncionario);
-        aumentoSalario(c1Gerente);
-        aumentoSalario(c2Diretor);
-        aumentoSalario(c3Presidente);
+        aumentoSalario();
+        virtual ~aumentoSalario();
+        float aumentaSalario(int tipo, float salario);
+        
     private:    
         float percentuaLOperador = 0.05;
         float percentualGerente = 0.10;

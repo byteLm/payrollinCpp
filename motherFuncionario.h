@@ -29,6 +29,8 @@ class mFuncionario
         void setDataIngresso(string dataIngresso);
         void setSalario(float salario);
 
+        virtual void imprime();
+
     protected:
         string codigo;
         int desig;
