@@ -476,7 +476,7 @@ c1Gerente GerenciaBD::consultaGerente(string codigo1){
                             tempGerente.setDataIngresso(dataIngresso);
                             tempGerente.setSalario(stof(salario));
                             tempGerente.setAreaSupervisao(areaSupervisao);
-                            return tempGerente;
+                            
                             break;
                         }
 
@@ -487,6 +487,8 @@ c1Gerente GerenciaBD::consultaGerente(string codigo1){
         }
         if(funcEncontrado==0){
             cout << "Gerente nao encontrado!\n";
+        }else{
+            return tempGerente;
         }
     }
 }
