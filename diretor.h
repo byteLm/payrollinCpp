@@ -1,3 +1,9 @@
+/*
+Classe herda todos os atributos e funções de mFuncionario e de c1Gerente.
+Nessa classe é somente acrescentado o atributo Área de Formação e é re-implemetando
+a função 'imprime'.
+*/
+
 #include "gerente.h"
 class c2Diretor : public c1Gerente{
 

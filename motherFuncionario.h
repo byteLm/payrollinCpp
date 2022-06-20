@@ -1,3 +1,12 @@
+/*
+-> Classe 'Mãe' do projeto.
+Todas as classes c1Gerente, c2Diretor e c3Presidente irão
+derivar dessa classes.
+Essa classes, além de implementar atributos gerais referentes ao funcionários (base)
+também implementa o sistema de designação (linha 43).
+*/
+
+
 
 #include <iostream>
 #include <string.h>
@@ -32,8 +41,13 @@ class mFuncionario
         virtual void imprime();
 
     protected:
-        string codigo;
-        int desig;
+        string codigo; /*Código do funcionário*/
+        int desig; /*Designição: 
+        1 - Operário;
+        2 - Gerente;
+        3 - Diretor;
+        4 - Presidente;
+        */
 
         string nome;
         string endereco;

@@ -1,3 +1,4 @@
+/**/
 #include "motherFuncionario.h"
 mFuncionario::mFuncionario(){
     codigo = "0";

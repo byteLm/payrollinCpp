@@ -6,7 +6,7 @@ rotina de aumento de salário para todos os funcionários. Sendo os percentuais 
 ● Gerente: 10%
 ● Diretor: 20%
 ● Presidente 30%
-*/
+.*/
 
 
 #include "presidente.h"

@@ -1,5 +1,15 @@
 #include "gerenciamento.h"
 
+void imprimeMenu(){
+    cout << "O que você deseja fazer?\n";
+    cout << "1 - Adicionar funcionario\n";
+    cout << "2 - Remover funcionario\n";
+    cout << "3 - Aumentar salario\n";
+    cout << "4 - Consultar Funcionario\n";
+    cout << "5 - Editar funcionario \n";
+    cout << "6 - Listar Funcionarios\n";
+    cout << "7 - Sair\n";
+}
 int main (){
     int opcao, desig;
     int tipoTemp;
@@ -7,15 +17,10 @@ int main (){
     GerenciaBD gerencia;
 
     while(1){ 
-        cout << "O que você deseja fazer?\n";
-        cout << "1 - Adicionar funcionario\n";
-        cout << "2 - Remover funcionario\n";
-        cout << "3 - Aumentar salario\n";
-        cout << "4 - Consultar Funcionario\n";
-        cout << "5 - Editar funcionario \n";
-        cout << "6 - Listar Funcionarios\n";
-        cout << "7 - Sair\n";
+        
+        imprimeMenu();
         cin >> opcao;
+        
         switch(opcao){
             case 1:
                 cout << "Digite o tipo de funcionario: \n";
@@ -26,14 +31,12 @@ int main (){
                 cin >> desig;
                 gerencia.cadastrarFuncionario(desig);
                 break;
-            
             case 2:
                 cout << "Digite o codigo do funcionario: \n";
                 cin.ignore();
                 getline(cin, temp);
                 gerencia.removerFuncionario(temp);
                 break;
-            
             case 3: 
                 cout << "Rotina de aumento!\n";
                 cout << "Voce deseja aumentar um salario especifico ou executar a rotina para todos?\n";
@@ -67,15 +70,18 @@ int main (){
                             cout << "2 - Nao\n";
                             cin >> tipoTemp;
                             if(tipoTemp == 1){
-                                cout << "\nEsse eh o get codigo: \n" << operario.getCodigo() << endl;
-                                gerencia.removerFuncionario(operario.getCodigo());
-                                gerencia.cadastrarOperario(operario);
+                                gerencia.atualizaOperario(operario);
                                 cout << "Salario atualizado com sucesso!\n";
+                                aumento.~aumentoSalario();
                             }else{
                                 cout << "Salario não foi atualizado!\n";
                             }
                         }
                     };
+                }else if(tipoTemp == 2){
+                    gerencia.aumentaSalarios();
+                }
+
                 break;
             case 4:
                 cout << "Digite o código do funcionário.\n";
@@ -83,24 +89,25 @@ int main (){
                 getline(cin, temp);
                 tipoTemp = gerencia.retornaTipo(temp);  
                 if(tipoTemp == 1){
+                    cout << "Consultando operario...\n";
                     mFuncionario operario = gerencia.consultaOperario(temp);
-                    cout << operario.getCodigo() << " " << operario.getNome() << " " << operario.getEndereco() << " " << operario.getTelefone() << " " << operario.getDataIngresso() << " " << operario.getSalario() << " " << operario.getDesig() << endl;
+                    operario.imprime();
+                    operario.~mFuncionario();
                 }else if(tipoTemp == 2){
-                    c1Gerente gerente = gerencia.consultaGerente(temp);
+                    cout << "Consultando gerente...\n";
+                    mFuncionario gerente = gerencia.consultaGerente(temp);
+                    gerente.imprime();
+                    gerente.~mFuncionario();
                 }else if(tipoTemp == 3){
-                    c2Diretor diretor = gerencia.consultaDiretor(temp);
+                    cout << "Consultando diretor...\n";
+                    mFuncionario diretor = gerencia.consultaDiretor(temp);
+                    diretor.imprime();
+                    diretor.~mFuncionario();
                 }else if(tipoTemp == 4){
-                    c3Presidente presidente = gerencia.consultaPresidente(temp);
-                    cout << presidente.getNome() << endl;
-                    cout << presidente.getEndereco() << endl;
-                    cout << presidente.getTelefone() << endl;
-                    cout << presidente.getSalario() << endl;
-                    cout << presidente.getCodigo() << endl;
-                    cout << presidente.getDesig() << endl;
-                    cout << presidente.getAreaFormacao () << endl;
-                    cout << presidente.getFormacaoMax() << endl;
-                }else if(tipoTemp == -1){
-                    cout << "Funcionario não encontrado.\n";
+                    cout << "Consultando presidente...\n";
+                    mFuncionario presidente = gerencia.consultaPresidente(temp);
+                    presidente.imprime();
+                    presidente.~mFuncionario();
                 }
                 break;    
             case 5:
@@ -111,28 +118,37 @@ int main (){
                 gerencia.editaFuncionario(temp, tipoTemp);
                 break;
             case 6:
+                cout << "Listando funcionarios!" << endl;
                 cout << "Listar todos os funcionarios ou deseja filtrar por cargo?\n";
                 cout << "0 - Todos\n";
                 cout << "1 - Somente Operadores.\n";
                 cout << "2 - Somente Gerentes.\n";
                 cout << "3 - Somente Diretores.\n";
                 cout << "4 - Somente Presidentes.\n";
-                cout << "5 - Sair\n";
+                cout << "5 - Filtrar por parâmetro parcial (busca ampla).\n";
+                cout << "6 - Sair\n";
                 tipoTemp = 0;
                 cin >> tipoTemp;
                 if(tipoTemp == 0){
-                    gerencia.listarFuncionarios(-1);
+                    gerencia.listarFuncionarios(0, "");
                 }else if(tipoTemp == 1){
-                    gerencia.listarFuncionarios(1);
+                    gerencia.listarFuncionarios(1, "");
                 }else if(tipoTemp == 2){
-                    gerencia.listarFuncionarios(2);
+                    gerencia.listarFuncionarios(2, "");
                 }else if(tipoTemp == 3){
-                    gerencia.listarFuncionarios(3);
+                    gerencia.listarFuncionarios(3, "");
                 }else if(tipoTemp == 4){
-                    gerencia.listarFuncionarios(4);
+                    gerencia.listarFuncionarios(4, "");
                 }else if(tipoTemp == 5){
+                    cout << "Digite a palavra-chave desejada: \n";
+                    cin.ignore();
+                    getline(cin, temp);
+                    gerencia.listarFuncionarios(100, temp);
+                }else if(tipoTemp == 6){
                     cout << "Saindo...\n";
                     continue;
+                } else{
+                    cout << "Opção inválida.\n";
                 }
                 break;
             case 7:
@@ -144,5 +160,4 @@ int main (){
                 break;
         }
     }
-}
 }

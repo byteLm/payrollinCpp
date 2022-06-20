@@ -5,79 +5,139 @@ GerenciaBD::GerenciaBD(){
 };
 GerenciaBD::~GerenciaBD(){
 };
-void GerenciaBD::listarFuncionarios(int filtroCargo){
-    cout << "Listando funcionarios!" << endl;
+
+/*Essa classe irá imprimir todos os dados disponíveis no banco de dados sobre determinados funcionários
+Será possível com ela imprimir:
+-> Todos os funcionários;
+-> Todos os funcionários com determinado cargo;
+-> Todos os funcionários com determinado nome/endereço;
+-> Todos os funcionários com mesma data de ingresso
+
+Ap.1.
+Caso o filtro cargo '1' seja passado será imprimido todos os funcionários de OPERADORES, e assim por diante.
+Caso o filtro cargo seja '-1' será imprimido todos os funcionários.
+
+Ap.2.
+Para utilizar qualquer outro filtro basta passar o desejado em formato de string, será visto em todos os funcionários
+aqueles que possuírem o designado.
+
+Ap.3.
+DEVE ser utilizado, ao puxar a função, todos os parâmetros. Para o filtro cargo, caso não for utilizado,
+qualquer valor != à -1, 1, 2, 3 ou 4 será desconsiderado - já para o parametro "qualquerAtributo", 
+caso não seja utilizado, deve-se passar uma string vazia "".
+*/
+void GerenciaBD::listarFuncionarios(int filtroCargo, string qualquerAtributo){
 
     fstream arqParaQT;
     int qt = 0;
     string temp;
     string cod[100];
     int tipo;
-    arqParaQT.open("funcionarios.txt", ios::in);
-    if(arqParaQT.is_open()){
-        while(getline(arqParaQT, temp)){
-            qt++;
-            for(int i=2; temp[i]!=','; i++){
-                cod[qt] += temp[i];
-            }
-    }
-    arqParaQT.close();
-    }
+    if(filtroCargo == -1 || filtroCargo == 1 || filtroCargo == 2 || filtroCargo == 3 || filtroCargo == 4){
+        arqParaQT.open("funcionarios.txt", ios::in);
+        if(arqParaQT.is_open()){
+            while(getline(arqParaQT, temp)){
+                qt++;
+                for(int i=2; temp[i]!=','; i++){
+                    cod[qt] += temp[i];
+                }
+        }
+        arqParaQT.close();
+        }
 
-    if(filtroCargo == -1){          
-        for(int i=0; i<qt; i++){
-            tipo = retornaTipo(cod[i]);
+        if(filtroCargo == -1){          
+            for(int i=0; i<qt; i++){
+                tipo = retornaTipo(cod[i]);
+                if(tipo == 1){
+                    this->tempOperario = this->consultaOperario(cod[i]);
+                    tempOperario.imprime();
+                }else if(tipo == 2){
+                    this->tempGerente = this->consultaGerente(cod[i]);
+                    tempGerente.imprime();  
+                }else if(tipo == 3){
+                    this->tempDiretor = this->consultaDiretor(cod[i]);
+                    tempGerente.imprime();      
+                }else if(tipo == 4){
+                    this->tempPresidente = this->consultaPresidente(cod[i]);
+                    tempPresidente.imprime();    
+                }else{
+                    break;
+                }
+            }
+        }else if(filtroCargo == 1){
+            for(int i=0; i<qt; i++){
+                tipo = retornaTipo(cod[i]);
+                if(tipo == 1){
+                    this->tempOperario = this->consultaOperario(cod[i]);
+                    tempOperario.imprime();
+                }
+            }
+        }else if(filtroCargo == 2){
+            for(int i=0; i<qt; i++){
+                tipo = retornaTipo(cod[i]);
+                if(tipo == 2){
+                    this->tempGerente = this->consultaGerente(cod[i]);
+                    tempGerente.imprime();  
+                }
+            }
+        }else if(filtroCargo == 3){
+            for(int i=0; i<qt; i++){
+                tipo = retornaTipo(cod[i]);
+                if(tipo == 3){
+                    this->tempDiretor = this->consultaDiretor(cod[i]);
+                    tempDiretor.imprime();      
+                }
+            }
+        }else if(filtroCargo == 4){
+            for(int i=0; i<qt; i++){
+                tipo = retornaTipo(cod[i]);
+                if(tipo == 4){
+                    this->tempPresidente = this->consultaPresidente(cod[i]);
+                    tempPresidente.imprime();    
+                }
+            }
+            
+        }
+    }
+    if(qualquerAtributo != ""){
+        int total = 0;    
+        string codComString[100];
+        for(int i = 0; i<100; i++){
+            codComString[i] = "";
+        }
+        arqParaQT.open("funcionarios.txt", ios::in);
+        if(arqParaQT.is_open()){
+            qt = 0;
+            while(getline(arqParaQT, temp)){
+                qt++;
+                if(temp.find(qualquerAtributo)!= string::npos){
+                    total++;                
+                    for(int i=2; temp[i]!=','; i++){
+                        codComString[qt] += temp[i];
+                    }
+                }
+            }
+        }
+        arqParaQT.close();
+        
+        for(int i=0; i<total; i++){
+            tipo = retornaTipo(codComString[i]);
             if(tipo == 1){
-                this->tempOperario = this->consultaOperario(cod[i]);
+                this->tempOperario = this->consultaOperario(codComString[i]);
                 tempOperario.imprime();
             }else if(tipo == 2){
-                this->tempGerente = this->consultaGerente(cod[i]);
-                tempGerente.imprime();  
+                this->tempGerente = this->consultaGerente(codComString[i]);
+                tempGerente.imprime();
             }else if(tipo == 3){
-                this->tempDiretor = this->consultaDiretor(cod[i]);
-                tempGerente.imprime();      
+                this->tempDiretor = this->consultaDiretor(codComString[i]);
+                tempDiretor.imprime();
             }else if(tipo == 4){
-                this->tempPresidente = this->consultaPresidente(cod[i]);
-                tempPresidente.imprime();    
-            }else{
-                break;
+                this->tempPresidente = this->consultaPresidente(codComString[i]);
+                tempPresidente.imprime();
             }
         }
-    }else if(filtroCargo == 1){
-        for(int i=0; i<qt; i++){
-            tipo = retornaTipo(cod[i]);
-            if(tipo == 1){
-                this->tempOperario = this->consultaOperario(cod[i]);
-                tempOperario.imprime();
-            }
-        }
-    }else if(filtroCargo == 2){
-        for(int i=0; i<qt; i++){
-            tipo = retornaTipo(cod[i]);
-            if(tipo == 2){
-                this->tempGerente = this->consultaGerente(cod[i]);
-                tempGerente.imprime();  
-            }
-        }
-    }else if(filtroCargo == 3){
-        for(int i=0; i<qt; i++){
-            tipo = retornaTipo(cod[i]);
-            if(tipo == 3){
-                this->tempDiretor = this->consultaDiretor(cod[i]);
-                tempDiretor.imprime();      
-            }
-        }
-    }else if(filtroCargo == 4){
-        for(int i=0; i<qt; i++){
-            tipo = retornaTipo(cod[i]);
-            if(tipo == 4){
-                this->tempPresidente = this->consultaPresidente(cod[i]);
-                tempPresidente.imprime();    
-            }
-        }
-    }
-
-};
+    }    
+}
 
 
 void GerenciaBD::cadastrarOperario(mFuncionario novo){
@@ -90,6 +150,36 @@ void GerenciaBD::cadastrarOperario(mFuncionario novo){
     arq << funcionario;
     arq.close();
 };
+void GerenciaBD::cadastrarGerente(c1Gerente novo){
+    //cadastrando novo gerente
+    fstream arq;
+    int tipo = 2;
+    arq.open("funcionarios.txt", ios::app);
+    string funcionario;
+    funcionario = to_string(tipo)+","+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+","+novo.getAreaSupervisao()+"!\n";
+    arq << funcionario;
+    arq.close();
+};
+void GerenciaBD::cadastrarDiretor(c2Diretor novo){
+    //cadastrando novo diretor
+    fstream arq;
+    int tipo = 3;
+    arq.open("funcionarios.txt", ios::app);
+    string funcionario;
+    funcionario = to_string(tipo)+","+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+","+novo.getAreaSupervisao()+","+novo.getAreaFormacao()+"!\n";
+    arq << funcionario;
+    arq.close();
+};
+void GerenciaBD::cadastrarPresidente(c3Presidente novo){
+    //cadastrando novo presidente
+    fstream arq;
+    int tipo = 4;
+    arq.open("funcionarios.txt", ios::app);
+    string funcionario;
+    funcionario = to_string(tipo)+","+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+","+novo.getAreaSupervisao()+","+novo.getAreaFormacao()+","+novo.getFormacaoMax()+"!\n";
+    arq << funcionario;
+    arq.close();
+};
 void GerenciaBD::cadastrarFuncionario(int tipo){
     fstream arq;
     arq.open("funcionarios.txt", ios::app);
@@ -97,92 +187,59 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
     string codigo;
     float salario;
     string nome, endereco, telefone, dataIngresso, areaSupervisao, areaFormacao, formMax;
+
+
+    cout << "Digite o codigo do funcionario: ";
+    cin >> codigo;
+    cout << "Digite o nome do funcionario: ";
+    cin.ignore();
+    getline(cin, nome);
+    cout << "Digite o endereco do funcionario: \n";
+    getline(cin, endereco);
+    if(endereco.find(",")!= string::npos){
+        endereco.erase(endereco.find(","), 1);
+    }
+    cout << "Digite o telefone do funcionario: \n";
+    getline(cin, telefone);
+    cout << "Digite a data de ingresso do funcionario: \n";
+    getline(cin, dataIngresso);
+    cout << "Digite o salario do funcionario: \n";
+    cin >> salario;
+  
     switch(tipo){
         case 1:
-            cout << "Adicionando Operador...\n";
-            cout << "Digite o codigo do funcionario: ";
-            cin >> codigo;
-            cout << "Digite o nome do funcionario: ";
-            cin.ignore();
-            getline(cin, nome);
-            cout << "Digite o endereco do funcionario: \n";
-            getline(cin, endereco);
-            cout << "Digite o telefone do funcionario: \n";
-            getline(cin, telefone);
-            cout << "Digite a data de ingresso do funcionario: \n";
-            getline(cin, dataIngresso);
-            cout << "Digite o salario do funcionario: \n";
-            cin >> salario;
             // Para o arquivo:
             funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+"!\n";            
             arq << funcionario;
             arq.close();
             break;
         case 2:
-            cout << "Adicionando Gerente...\n";
-            cout << "Digite o codigo do gerente: ";
-            cin >> codigo;
-            cout << "Digite o nome do gerente: ";
-            cin.ignore();
-            getline(cin, nome);
-            cout << "Digite o endereco do gerente: \n";
-            getline(cin, endereco);
-            cout << "Digite o telefone do gerente: \n";
-            getline(cin, telefone);
-            cout << "Digite a data de ingresso do gerente: \n";
-            getline(cin, dataIngresso);
             cout << "Digite a área de supervisão do gerente: \n";
             getline(cin, areaSupervisao);
-            cout << "Digite o salario do gerente: \n";
-            cin >> salario;
-            // Para o arquivo:
             funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaSupervisao+"!\n";            
             arq << funcionario;
             arq.close();
             break;
         case 3:
             cout << "Adicionando Diretor...\n";
-            cout << "Digite o codigo do diretor: ";
-            cin >> codigo;
-            cout << "Digite o nome do diretor: ";
-            cin.ignore();
-            getline(cin, nome);
-            cout << "Digite o endereco do diretor: \n";
-            getline(cin, endereco);
-            cout << "Digite o telefone do diretor: \n";
-            getline(cin, telefone);
-            cout << "Digite a data de ingresso do diretor: \n";
-            getline(cin, dataIngresso);
+            
             cout << "Digite a área de supervisão do diretor: \n";
             getline(cin, areaSupervisao);
             cout << "Digite a área de formação do diretor: \n";
             getline(cin, areaFormacao);
-            cout << "Digite o salario do diretor: \n";
-            cin >> salario;
+            
             // Para o arquivo:
             funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaSupervisao+","+areaFormacao+"!\n";            
             arq << funcionario;
             arq.close();
             break;
         case 4:
-            cout << "Adicionando Presidente...\n";
-            cout << "Digite o codigo do presidente: ";
-            cin >> codigo;
-            cout << "Digite o nome do presidente: ";
-            cin.ignore();
-            getline(cin, nome);
-            cout << "Digite o endereco do presidente: \n";
-            getline(cin, endereco);
-            cout << "Digite o telefone do presidente: \n";
-            getline(cin, telefone);
-            cout << "Digite a data de ingresso do presidente: \n";
-            getline(cin, dataIngresso);
+            
             cout << "Digite a área de formação do presidente: \n";
             getline(cin, areaFormacao);
             cout << "Digite a formação acadêmica máxima do presidente: \n";
             getline(cin, formMax);
-            cout << "Digite o salario do presidente: \n";
-            cin >> salario;
+            
             // Para o arquivo:
             funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaFormacao+","+formMax+"!\n";           
             arq << funcionario;
@@ -195,40 +252,30 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
 void GerenciaBD::removerFuncionario(string codigo1){ 
     string linha;
     int funcEncontrado = 0;
-    cout << "Removendo funcionario...\n";
-    cout << "Você tem certeza?\n";
-    cout << "1 - Sim\n";
-    cout << "2 - Não\n";
 
-    int opcao;
-    cin >> opcao;
-    if(opcao == 1){
-        fstream arq;
-        arq.open("funcionarios.txt", ios::in);
-        if(arq.is_open()){
-            fstream arq2;
-            arq2.open("funcionarios2.txt", ios::out);
-            while(getline(arq, linha)){
-                if(linha.find(codigo1) != string::npos){
-                    funcEncontrado = 1;
-                }
-                else{
-                    arq2 << linha+"\n";
-                } 
+    fstream arq;
+    arq.open("funcionarios.txt", ios::in);
+    if(arq.is_open()){
+        fstream arq2;
+        arq2.open("funcionarios2.txt", ios::out);
+        while(getline(arq, linha)){
+            if(linha.find(codigo1) != string::npos){
+                funcEncontrado = 1;
             }
-            if(funcEncontrado==1){
-                arq.close();
-                arq2.close();
-                remove("funcionarios.txt");
-                rename("funcionarios2.txt", "funcionarios.txt");  
-                cout << "Funcionario removido com sucesso!\n";
-            }else{
-                cout << "Funcionario nao encontrado!\n";   
-            }   
-            }
-    }else{
-        cout << "Operação cancelada!\n";
-    }
+            else{
+                arq2 << linha+"\n";
+            } 
+        }
+        if(funcEncontrado==1){
+            arq.close();
+            arq2.close();
+            remove("funcionarios.txt");
+            rename("funcionarios2.txt", "funcionarios.txt");  
+        }else{
+            cout << "Funcionario nao encontrado!\n";   
+        }   
+        }
+
 };
 void GerenciaBD::editaFuncionario(string codigo1, int tipo){
     
@@ -306,39 +353,7 @@ void GerenciaBD::editaFuncionario(string codigo1, int tipo){
         this->removerFuncionario(codigo1);
         this->cadastrarOperario(tempFuncionario);     
     }   
-}
-
-
-
-int GerenciaBD::retornaTipo(string codigo1){
-    string linha;
-    fstream arq;
-    
-    arq.open("funcionarios.txt", ios::in);
-    
-    if(arq.is_open()){
-        while(getline(arq, linha)){        
-            if(linha.find(codigo1) != string::npos){
-                if(linha[0]=='1'){
-                  return 1;  
-                }
-            
-                if(linha[0]=='2'){
-                   return 2;
-                }
-            
-                if(linha[0]=='3'){
-                    return 3;
-                }
-                if(linha[0]=='4'){
-                   return 4;
-                }
-                }
-            }
-    }
-    return -1;
-}
-   
+}  
 mFuncionario GerenciaBD::consultaOperario(string codigo1){
     string linha;
     string tempString = "";
@@ -354,7 +369,6 @@ mFuncionario GerenciaBD::consultaOperario(string codigo1){
     string telefone = "";
     string dataIngresso = "";
     
-    cout << "Consultando operario...\n";
         
     arq.open("funcionarios.txt", ios::in);
     
@@ -427,7 +441,6 @@ c1Gerente GerenciaBD::consultaGerente(string codigo1){
     string dataIngresso = "";
     string areaSupervisao = "";
     
-    cout << "Consultando gerente...\n";
         
     arq.open("funcionarios.txt", ios::in);
     
@@ -509,8 +522,7 @@ c2Diretor GerenciaBD::consultaDiretor(string codigo1){
     string areaSupervisao = "";
     string areaFormacao = "";
     
-    
-    cout << "Consultando diretor...\n";
+
         
     arq.open("funcionarios.txt", ios::in);
     
@@ -592,7 +604,6 @@ c3Presidente GerenciaBD::consultaPresidente(string codigo1){
     string areaFormacao = "";
     string formMax = "";
 
-    cout << "Consultando presidente...\n";
     arq.open("funcionarios.txt", ios::in);    
     if(arq.is_open()){
         while(getline(arq, linha)){        
@@ -661,5 +672,112 @@ c3Presidente GerenciaBD::consultaPresidente(string codigo1){
     }
    
 }
+void GerenciaBD::atualizaOperario(mFuncionario operario){
+    removerFuncionario(operario.getCodigo());
+    cadastrarOperario(operario);
+}
+void GerenciaBD::atualizaGerente(c1Gerente gerente){
+    removerFuncionario(gerente.getCodigo());
+    cadastrarGerente(gerente);
+}
+void GerenciaBD::atualizaDiretor(c2Diretor diretor){
+    removerFuncionario(diretor.getCodigo());
+    cadastrarDiretor(diretor);
+}
+void GerenciaBD::atualizaPresidente(c3Presidente presidente){
+    removerFuncionario(presidente.getCodigo());
+    cadastrarPresidente(presidente);
+}
 
 
+int GerenciaBD::retornaTipo(string codigo1){
+    string linha;
+    fstream arq;
+    
+    arq.open("funcionarios.txt", ios::in);
+    
+    if(arq.is_open()){
+        while(getline(arq, linha)){        
+            if(linha.find(codigo1) != string::npos){
+                if(linha[0]=='1'){
+                  return 1;  
+                }
+            
+                if(linha[0]=='2'){
+                   return 2;
+                }
+            
+                if(linha[0]=='3'){
+                    return 3;
+                }
+                if(linha[0]=='4'){
+                   return 4;
+                }
+                }
+            }
+    }
+    return -1;
+}
+void GerenciaBD::aumentaSalarios(){
+    fstream arq;
+    string temp;
+    int tipo;
+    int qt;
+    string cod[100];
+    qt = 0;
+    arq.open("funcionarios.txt", ios::in);
+    if(arq.is_open()){
+        while(getline(arq, temp)){
+            qt++;
+            for(int i=2; temp[i]!=','; i++){
+                cod[qt] += temp[i];
+            }
+    }
+    arq.close();
+    }
+
+    aumentoSalario aumento;
+
+    for(int i=0; i<qt; i++){
+        tipo = retornaTipo(cod[i]);
+        if(tipo == 1){
+            cout << "----------------------------------------------------";
+            this->tempOperario = this->consultaOperario(cod[i]);
+            cout << "Salario antigo de " << tempOperario.getNome() << " (Operador)" <<": " << tempOperario.getSalario() << endl;
+            aumento.aumentaSalario(1, tempOperario.getSalario());
+            this->atualizaOperario(tempOperario);
+            cout << "Salario atualizado de " << tempOperario.getNome() << " (Operador)" <<": " << tempOperario.getSalario() << endl;
+            cout << "----------------------------------------------------\n";
+
+        }else if(tipo == 2){
+            cout << "----------------------------------------------------";
+            this->tempGerente = this->consultaGerente(cod[i]);
+            cout << "Salario antigo de " << tempGerente.getNome() << " (Gerente)" <<": " << tempGerente.getSalario() << endl;
+            aumento.aumentaSalario(2, tempGerente.getSalario());
+            this->atualizaGerente(tempGerente);
+            cout << "Salario atualizado de " << tempGerente.getNome() << " (Gerente)" <<": " << tempGerente.getSalario() << endl;
+            cout << "----------------------------------------------------\n";
+                
+        }else if(tipo == 3){
+            cout << "----------------------------------------------------";
+            this->tempDiretor = this->consultaDiretor(cod[i]);
+            cout << "Salario antigo de " << tempDiretor.getNome() << " (Diretor)" <<": " << tempDiretor.getSalario() << endl;
+            aumento.aumentaSalario(3, tempDiretor.getSalario());
+            this->atualizaDiretor(tempDiretor);
+            cout << "Salario atualizado de " << tempDiretor.getNome() << " (Diretor)" <<": " << tempDiretor.getSalario() << endl;
+            cout << "----------------------------------------------------\n";
+
+                
+        }else if(tipo == 4){
+            cout << "----------------------------------------------------";
+            this->tempPresidente = this->consultaPresidente(cod[i]);
+            cout << "Salario antigo de " << tempPresidente.getNome() << " (Presidente)" <<": " << tempPresidente.getSalario() << endl;
+            aumento.aumentaSalario(4, tempPresidente.getSalario());
+            this->atualizaPresidente(tempPresidente);
+            cout << "Salario atualizado de " << tempPresidente.getNome() << " (Presidente)" <<": " << tempPresidente.getSalario() << endl;
+            cout << "----------------------------------------------------\n";
+        }else{
+            break;
+        }
+    }            
+}

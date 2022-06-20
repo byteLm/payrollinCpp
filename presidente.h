@@ -1,5 +1,10 @@
-#include "diretor.h"
+/*
+Essa classe herdará todos os atributos e funções de mFuncionario, c1Gerente e c2Diretor.
+Nessa classe é somente acrescentado o atributo Formação Máxima e é re-implementado
+a função 'imprime'.
+*/
 
+#include "diretor.h"
 
 class c3Presidente : public c2Diretor{
     
