@@ -1,4 +1,5 @@
-#include "gerenciamento.h"
+#include "calculaSalario.cpp"
+
 
 void imprimeMenu(){
     cout << "O que você deseja fazer?\n";
@@ -8,13 +9,15 @@ void imprimeMenu(){
     cout << "4 - Consultar Funcionario\n";
     cout << "5 - Editar funcionario \n";
     cout << "6 - Listar Funcionarios\n";
-    cout << "7 - Sair\n";
+    cout << "7 - Calcular salario liquido funcionário\n";
+    cout << "8 - Sair\n";
 }
 int main (){
     int opcao, desig;
     int tipoTemp;
     string temp;
     GerenciaBD gerencia;
+
 
     while(1){ 
         
@@ -152,6 +155,31 @@ int main (){
                 }
                 break;
             case 7:
+                cout << "Digite o codigo do funcionario.\n";
+                cin.ignore();
+                getline(cin, temp);
+                tipoTemp = gerencia.retornaTipo(temp);
+                if(tipoTemp == 1){
+                    float salario = gerencia.consultaOperario(temp).getSalario();
+                    CalculaSalarioFunc calc = CalculaSalarioFunc();
+                    cout << "Salario: " << calc.CalculaSalarioFunc(salario, 0) << endl;
+                }else if(tipoTemp == 2){
+                    float salario = gerencia.consultaGerente(temp).getSalario();
+                    CalculaSalarioFunc calc = CalculaSalarioFunc();
+                    cout << "Salario: " << calc.CalculaSalarioFunc(salario, 1) << endl;
+                }else if(tipoTemp == 3){
+                    float salario = gerencia.consultaDiretor(temp).getSalario();
+                    CalculaSalarioFunccalc = CalculaSalarioFunc();
+                    cout << "Salario: " << calc.CalculaSalarioFunc(salario, 2) << endl;
+                }else if(tipoTemp == 4){
+                    float salario = gerencia.consultaPresidente(temp).getSalario();
+                    CalculaSalarioFunc calc = CalculaSalarioFunc();
+                    cout << "Salario: " << calc.CalculaSalarioFunc(salario, 3) << endl;
+                }
+                break;
+
+                    
+            case 8:
                 cout << "Saindo...\n";
                 return 0;
             cout << "Ok!";

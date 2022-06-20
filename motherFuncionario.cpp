@@ -8,6 +8,7 @@ mFuncionario::mFuncionario(){
     telefone = "";
     dataIngresso = "";
     salario = 0;
+    totalHorasExtras = 0;
 }
 mFuncionario::mFuncionario(string codigo, string nome, string endereco, string telefone, string dataIngresso, float salario, int desig){
     this->codigo = codigo;
@@ -72,4 +73,10 @@ void mFuncionario::imprime(){
     cout << "Endereco: " << this->getEndereco() << endl;
     cout << "Data de ingresso: " << this->getDataIngresso() << endl;
     cout << "----------------------------------------------------" << endl;
+}
+void mFuncionario::setTotalHorasExtras(float totalHorasExtras){
+    this->totalHorasExtras = totalHorasExtras;
+}
+int mFuncionario::getTotalHorasExtras(){
+    return this->totalHorasExtras;
 }

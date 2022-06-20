@@ -44,6 +44,7 @@ após, basta utilizá-lo na consulta.
 
 #include "aumentoSalario.h"
 
+
 #include <fstream>
 class GerenciaBD : public c3Presidente, ofstream{
 

@@ -1,5 +1,6 @@
 #include "gerenciamento.h"
 
+#include <vector>
 
 GerenciaBD::GerenciaBD(){
 };
@@ -214,6 +215,7 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
             arq.close();
             break;
         case 2:
+            cin.ignore();
             cout << "Digite a área de supervisão do gerente: \n";
             getline(cin, areaSupervisao);
             funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaSupervisao+"!\n";            
@@ -222,7 +224,7 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
             break;
         case 3:
             cout << "Adicionando Diretor...\n";
-            
+            cin.ignore();
             cout << "Digite a área de supervisão do diretor: \n";
             getline(cin, areaSupervisao);
             cout << "Digite a área de formação do diretor: \n";
@@ -234,7 +236,7 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
             arq.close();
             break;
         case 4:
-            
+            cin.ignore();
             cout << "Digite a área de formação do presidente: \n";
             getline(cin, areaFormacao);
             cout << "Digite a formação acadêmica máxima do presidente: \n";
@@ -689,7 +691,6 @@ void GerenciaBD::atualizaPresidente(c3Presidente presidente){
     cadastrarPresidente(presidente);
 }
 
-
 int GerenciaBD::retornaTipo(string codigo1){
     string linha;
     fstream arq;
@@ -781,3 +782,30 @@ void GerenciaBD::aumentaSalarios(){
         }
     }            
 }
+
+
+//A DICIONARHORASEXTRAS
+
+/*
+
+e) Calcular Folha Salarial: Responsável por realizar o cálculo de salário de todos os funcionários
+para um determinado mês. Assim, será solicitado do usuário o mês a que se refere a folha
+salarial. Caso a folha para este mês já tenha sido calculada, exibir mensagem alertando que a
+folha para o seguinte mês já foi calculada.
+
+
+Deverá ser executada uma rotina que irá gerar
+aleatoriamente, mas apenas uma única vez, as informações como o número de dias
+trabalhados no mês pelo funcionário e o número de horas extras trabalhadas. Usar regra que a
+hora-extra equivale ao dobro daquilo pago para hora normal. Deverá também ser contabilizado
+os descontos relativos ao imposto de renda e previdência social.
+
+
+
+
+
+
+
+
+*/
+

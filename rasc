@@ -20,34 +20,6 @@ mFuncionario -> c1Gerente -> c2Diretor -> c3Presidente;
 -> Consulta funcionário por código > Imprimir os dados do func;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 FAZER AS EDIÇÕES NO ARQUIVO 'mainzona' e depois fazer os arquivos unicos com includes.
 
 

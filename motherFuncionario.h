@@ -37,6 +37,9 @@ class mFuncionario
         void setTelefone(string telefone);
         void setDataIngresso(string dataIngresso);
         void setSalario(float salario);
+        int getTotalHorasExtras();
+        void setTotalHorasExtras(float totalHorasExtras);
+
 
         virtual void imprime();
 
@@ -54,5 +57,7 @@ class mFuncionario
         string telefone;
         string dataIngresso;
         float salario;
+        int totalHorasExtras;
+
 
 };
