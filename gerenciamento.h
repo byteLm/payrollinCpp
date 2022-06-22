@@ -69,6 +69,7 @@ class GerenciaBD : public c3Presidente, ofstream{
         void atualizaPresidente(c3Presidente presidente);
 
         void aumentaSalarios();
+        void aumentaSalarioEspecifico(string codigo);
 
         mFuncionario consultaOperario(string codigo);
         c1Gerente consultaGerente(string codigo);
@@ -76,7 +77,7 @@ class GerenciaBD : public c3Presidente, ofstream{
         c3Presidente consultaPresidente(string codigo);
         int retornaTipo(string codigo);
 
-
+        void tirarFotografia(int designacao);
         
     protected:
         ofstream arq;
