@@ -8,7 +8,7 @@ class FolhaDePagamento{
         FolhaDePagamento();
         ~FolhaDePagamento();
         float calculaPagamentoFunc(float salario, float horasExtras, int diasTrabalhados);
-        void folhaDescritaFunc(float salario, float horasExtras, int diasTrabalhados);
+        void folhaDescritaFunc(float salario, float horasExtras, int diasTrabalhados, string nome, string codigo);
         int calculaFolhaEmpresa(int mesRef);
     private:
         float salarioMinimo = 1212.00;

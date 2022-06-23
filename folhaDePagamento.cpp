@@ -34,7 +34,7 @@ float FolhaDePagamento::calculaPagamentoFunc(float salario, float horasExtras, i
     
 
 };
-void FolhaDePagamento::folhaDescritaFunc(float salario, float horasExtras, int diasTrabalhados){
+void FolhaDePagamento::folhaDescritaFunc(float salario, float horasExtras, int diasTrabalhados, string nome, string codigo){
     float valorHora = salario/diasTrabalhados/8;
     float valorHoraExtra = valorHora*2;
     float totalhorasExtras = horasExtras;
@@ -60,9 +60,6 @@ void FolhaDePagamento::folhaDescritaFunc(float salario, float horasExtras, int d
     }
     float i = totalSalarioSemDescontos;
     totalSalarioComDescontos = totalSalarioSemDescontos - (i*(0.3515));
-
-
-
     
     cout << "Salario bruto para base:" << salario;
     cout << "Salario sem descontos: " << totalSalarioSemDescontos << endl;
@@ -78,6 +75,45 @@ void FolhaDePagamento::folhaDescritaFunc(float salario, float horasExtras, int d
     cout << "Valor hora: " << valorHora << endl;
     cout << "Valor hora extra: " << valorHoraExtra << endl;
     cout << "Total horas extras feitas: " << totalHorasExtras << endl;
+
+    string textoHtml = "";   
+    fstream arq; 
+    arq.open("folha.html", ios::in);
+    if(arq.is_open()){
+        string linha;
+        while(getline(arq, linha)){
+            if(linha.find("CODIGONOME")!=string::npos){
+                textoHtml+="<p class=\"tm6\"><span class=\"tm12\"></span><span class=\"tm13\">NOME COMPLETO</span><span class=\"tm12\">:" + nome + "</span></p>";
+                continue;
+            }else if(linha.find("CODIGOCODIGO")!=string::npos){
+                textoHtml += "<p class=\"tm6\"><span class=\"tm12\"></span><span class=\"tm13\">C&Oacute;DIGO</span><span class=\"tm12\">:"+ codigo +"</span></p>";
+                continue;
+            }else if(linha.find("SALARIOBRUTO")!=string::npos){
+                textoHtml += "<p class=\"tm6\"><span class=\"tm12\"></span><span class=\"tm13\">SAL&Aacute;RIO BRUTO: </span><span class=\"tm12\">"+ to_string(salario) +"</span></p>";
+                continue;
+            }else if(linha.find("CODIGOINSS")!=string::npos){
+                textoHtml += "<p class=\"tm6\"><span class=\"tm12\"></span><span class=\"tm15\">INSS</span><span class=\"tm12\">:"+ to_string(salario * 0.0765) +"</span></p>";
+                continue;
+            }else if(linha.find("CODIGOVT")!=string::npos){
+                textoHtml += "<p class=\"tm6\"><span class=\"tm12\"></span><span class=\"tm13\">VALE TRANSPORTE</span><span class=\"tm12\">:"+ to_string(salario * 0.06) +"</span></p>";
+                continue;
+            }else if(linha.find("CODIGOREFEICAO")!=string::npos){
+                textoHtml += "<p class=\"tm6\"><span class=\"tm12\">VALE REFEI&Ccedil;&Atilde;O:"+ to_string(salario * 0.1)  +"</span></p>";
+                continue;
+            }else if(linha.find("CODIGOSALARIOLIQUIDO")!=string::npos){
+                textoHtml += "<p class=\"tm6\"><span class=\"tm12\">SALARIO LIQUIDO: "+to_string(totalSalarioComDescontos)+"</span></p>";
+                continue;
+            }
+            
+            textoHtml += linha + "\n";   
+        }
+    }
+    arq.close();
+    arq.open("folha.html", ios::out);
+    if(arq.is_open()){
+        arq << textoHtml;
+    }
+
 };
 int FolhaDePagamento::calculaFolhaEmpresa(int mesRef){
       

@@ -39,16 +39,16 @@ realmente deseja excluir o registro do arquivo.✅
 
 d) Exibir registro de funcionário: Ao inserir o número de código do funcionário, os usuários
 podem acessar todas as informações fornecidas relacionadas a um determinado funcionário
-por meio desta função.
-e) Exibir lista de Funcionários: Este recurso exibe o registro de todos os funcionários
+por meio desta função.✅
+e) Exibir lista de Funcionários: Este recurso exibe o registro de todos os funcionários✅
 f) Exibir lista de Funcionários por tipo: Este recurso exibe o registro de todos os funcionários de
-um determinado tipo.
+um determinado tipo.✅
 g) Conceder aumento para os funcionários: este recurso ao ser solicitado deverá rodar uma
-rotina de aumento de salário para todos os funcionários. Sendo os percentuais de aumento:
-● Operador: 5%
-● Gerente: 10%
-● Diretor: 20%
-● Presidente 30%
+rotina de aumento de salário para todos os funcionários. Sendo os percentuais de aumento:✅
+● Operador: 5%✅
+● Gerente: 10%✅
+● Diretor: 20%✅
+● Presidente 30%✅
 
 
 
@@ -65,19 +65,19 @@ os descontos relativos ao imposto de renda e previdência social.
 
 f) Imprimir ou nome completo. Deve constar o salário base, descontos e salário líquido do
 empregado.uma Folha de Salário do Funcionário: Esse recurso também solicita o código do
-funcionário 
+funcionário ✅
 
 g) Imprimir a folha salarial empresa: Esse recurso dá opção de o usuário escolher ou a folha
 anual calculando o somatório de salário de cada empregado ou uma folha mensal, sendo que
-para esta última será solicitado qual mês do ano.
+para esta última será solicitado qual mês do ano. ✅
 
 
-h) Buscar: recurso que permite a busca de funcionários pelo:
-● Nome: fazer busca parcial
+h) Buscar: recurso que permite a busca de funcionários pelo:✅
+● Nome: fazer busca parcial✅
 ● Data de ingresso (dia, mês e ano): fazer por intervalo de tempo
-● Endereço: fazer busca parcial
-As informações de registro de funcionário exibidas são aquelas fornecidas ao adicionar um
-novo registro de funcionário.
+● Endereço: fazer busca parcial✅
+As informações de registro de funcionário exibidas são aquelas fornecidas ao adicionar um✅
+novo registro de funcionário.✅
 
 
 É esperado várias classes, herança, polimorfismo e classes abstratas, todas estas relações
@@ -96,15 +96,15 @@ c) Obter o endereço do funcionário baseado no CEP, para isso baixe o json com 
 CEP utilizando algum serviço gratuito como o do https://viacep.com.br.
 
 d) Fotografar o usuário no momento do cadastro, para isso pode ser utilizada alguma biblioteca
-externa como a OpenCV, ou outra biblioteca, ou algum programa externo.
+externa como a OpenCV, ou outra biblioteca, ou algum programa externo.✅
 
 e) Execução dos comandos através de comando de voz.
-f) Proponha seu requisito extra.
+f) Proponha seu requisito extra.✅ LOG E HTML
 
 Entrega:
-● Código fonte + apresentação do projeto;
-● Satisfazer todos os requisitos gerais listados acima.
-● Satisfazer pelo menos dois Requisitos Extras.
+● Código fonte + apresentação do projeto;✅
+● Satisfazer todos os requisitos gerais listados acima.✅
+● Satisfazer pelo menos dois Requisitos Extras.✅
 ● Comentários de documentação adequados no código. 
 
 Os projetos devem ser desenvolvidos em grupos de até 3 alunos.

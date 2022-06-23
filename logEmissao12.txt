@@ -1,32 +1,12 @@
 Folha de pagamento emitida com sucesso.
-Total bruto: 502463
-Total liquido: 325847
+Total bruto: 45624
+Total liquido: 27924.1
 Mes de referencia: 12
 Ano de referencia: 2022
-Data de emissão: 22/6/2022
-Hora de emissão: 21:25:27
+Data de emissão: 23/6/2022
+Hora de emissão: 2:22:4
 ----------------------------------------------------
 Funcionarios Considerados:
-20210241
-20210241
-7056288
-5959
-4231
-20215323
-2221
-20210025323
-2211
-555
-253901
-9999999999999999999
-6887
-589
-589
 555
 555
-4056
-4056
-7004
-7004
-202102125
-202102125
+20210025232

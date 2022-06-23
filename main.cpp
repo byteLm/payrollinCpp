@@ -175,7 +175,7 @@ int main (){
                     cout << "Salario Liquido: " << calc.calculaPagamentoFunc(temporario.getSalario(), totalHorasExtras, totalDiasTrabalhados) << endl;
                     if(opcao == 1){
                         cout << "Folha de Pagamento:\n";
-                        calc.folhaDescritaFunc(temporario.getSalario(), totalHorasExtras, totalDiasTrabalhados);
+                        calc.folhaDescritaFunc(temporario.getSalario(), totalHorasExtras, totalDiasTrabalhados, temporario.getNome(), temporario.getCodigo());
                     }
                     calc.~FolhaDePagamento();
                     temporario.~mFuncionario();
@@ -190,7 +190,7 @@ int main (){
                     cout << "Salario Liquido: " << calc.calculaPagamentoFunc(temporario.getSalario(), totalHorasExtras, totalDiasTrabalhados) << endl;
                     if(opcao == 1){
                         cout << "Folha de Pagamento:\n";
-                        calc.folhaDescritaFunc(temporario.getSalario(), totalHorasExtras, totalDiasTrabalhados);
+                        calc.folhaDescritaFunc(temporario.getSalario(), totalHorasExtras, totalDiasTrabalhados, temporario.getNome(), temporario.getCodigo());
                     }
                     calc.~FolhaDePagamento();
                     temporario.~c1Gerente();
@@ -205,7 +205,7 @@ int main (){
                     cout << "Salario Liquido: " << calc.calculaPagamentoFunc(temporario.getSalario(), totalHorasExtras, totalHorasExtras) << endl;
                     if(opcao == 1){
                         cout << "Folha de Pagamento:\n";
-                        calc.folhaDescritaFunc(temporario.getSalario(), totalHorasExtras, totalDiasTrabalhados);
+                        calc.folhaDescritaFunc(temporario.getSalario(), totalHorasExtras, totalDiasTrabalhados, temporario.getNome(), temporario.getCodigo());
                     }
                     calc.~FolhaDePagamento();
                     temporario.~c2Diretor();
@@ -218,7 +218,7 @@ int main (){
                     cout << "Salario Liquido: " << calc.calculaPagamentoFunc(temporario.getSalario(), totalHorasExtras, totalDiasTrabalhados) << endl;
                     if(opcao == 1){
                         cout << "Folha de Pagamento:\n";
-                        calc.folhaDescritaFunc(temporario.getSalario(), totalHorasExtras, totalDiasTrabalhados);
+                        calc.folhaDescritaFunc(temporario.getSalario(), totalHorasExtras, totalDiasTrabalhados, temporario.getNome(), temporario.getCodigo());
                     }
                     calc.~FolhaDePagamento();
                     temporario.~c2Diretor();
