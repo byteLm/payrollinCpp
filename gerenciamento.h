@@ -21,7 +21,7 @@ Essa classe irá considerar, para organização, a seguinte numeração para as 
 Ap.2.
 Essa classe irá organizar os dados da seguinte forma:
 
-->  designação,codigo,nome,endereco,telefone,dataIngresso,salario,areaSupervisao,areaFormacao,formacaoMax'!'
+->  designação,codigo,nome,endereco,telefone,dataIngresso,salario,totalHorasExtras,diasTrabalhados,areaSupervisao,areaFormacao,formacaoMax'!'
 
 Isto é, irá considerar na leitura do arquivo, que todos os campos possuem local fixo no arquivo,
 bem como irá considerar que estes serão dividos por ','. Todos os dados que estiverem entre uma vírgula 
@@ -34,6 +34,7 @@ Dado o objetivo de receber, durante a execução do programa, o objeto respectiv
 fora criado a função 'retornaTipo'. Para exemplificação, caso você deseje fazer uma consulta de um objeto qualquer,
 você deverá chamar a função 'retornaTipo' com o código do funcionário (ou qualquer atributo deste, com cuidado à duplicidade);
 após, basta utilizá-lo na consulta.
+
 
 
 */

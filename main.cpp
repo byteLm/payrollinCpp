@@ -2,6 +2,7 @@
 
 
 void imprimeMenu(){
+    system("cls");
     cout << "O que você deseja fazer?\n";
     cout << "1 - Adicionar funcionario\n";
     cout << "2 - Remover funcionario\n";
@@ -37,7 +38,13 @@ int main (){
                 cout << "2 - Gerente\n";
                 cout << "3 - Diretor\n";
                 cout << "4 - Presidente\n";
+                cout << "5 - Voltar\n";
                 cin >> desig;
+                if(desig ==5){
+                    cout << "Voltando ao menu principal\n";
+                    system("pause");
+                    break;
+                }
                 gerencia.cadastrarFuncionario(desig);
 
                 break;
@@ -46,7 +53,16 @@ int main (){
                 cout << "Digite o codigo do funcionario que deseja remover: \n";
                 cin.ignore();
                 getline(cin, temp);
-                gerencia.removerFuncionario(temp);
+                tipoTemp = gerencia.retornaTipo(temp);
+                if(tipoTemp != 3 && tipoTemp != 4){
+                    gerencia.removerFuncionario(temp);
+                    cout << "Funcionario removido com sucesso!\n";
+                    system("pause");
+                }else{
+                    cout << "Nao e possivel remover o presidente ou o diretor\n";
+                    system("pause");
+                }
+                
                 break;
             case 3: 
                 system("cls");
@@ -54,6 +70,7 @@ int main (){
                 cout << "Voce deseja aumentar um salario especifico ou executar a rotina para todos?\n";
                 cout << "1 - Especifico\n";
                 cout << "2 - Todos\n";
+                cout << "3 - Voltar\n";
                 cin >> opcao;
                 if(opcao == 1){
                     system("cls");
@@ -61,9 +78,15 @@ int main (){
                     cin.ignore();
                     getline(cin, temp);
                     gerencia.aumentaSalarioEspecifico(temp);
+                    cout << "Aumento realizado com sucesso!\n";
+                    system("pause");
                 }else if(opcao == 2){
                     gerencia.aumentaSalarios();
                     cout << "Rotina de aumento executada com sucesso!\n";
+                    system("pause");
+                }else if(opcao == 3){
+                    cout << "Rotina cancelada pelo usuário!\n";
+                    system("pause");
                 }
                 break;
             case 4:

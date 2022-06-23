@@ -7,15 +7,15 @@ GerenciaBD::GerenciaBD(){
 GerenciaBD::~GerenciaBD(){
 };
 
-/*Essa classe irá imprimir todos os dados disponíveis no banco de dados sobre determinados funcionários
+/*
+---------------------------------------------------------------------------------------------------------------------
+.listarFuncionarios();✅
+Essa classe irá imprimir todos os dados disponíveis no banco de dados sobre determinados funcionários
 Será possível com ela imprimir:
 -> Todos os funcionários;
 -> Todos os funcionários com determinado cargo;
 -> Todos os funcionários com determinado nome/endereço;
 -> Todos os funcionários com mesma data de ingresso
-
----------------------------------------------------------------------------------------------------------------------
-.listarFuncionarios();✅
 ---------------------------------------------------------------------------------------------------------------------
 Ap.1.
 Caso o filtro cargo '1' seja passado será impresso todos os funcionários de OPERADORES, e assim por diante.
@@ -27,7 +27,6 @@ aqueles que possuírem o designado.
 */
 
 void GerenciaBD::listarFuncionarios(int filtroCargo, string qualquerAtributo){ // ✅
-
     fstream arqParaQT;
     int qt = -1;
     string temp;
@@ -151,6 +150,7 @@ void GerenciaBD::listarFuncionarios(int filtroCargo, string qualquerAtributo){ /
         }
     }    
 }
+//----------------------------------------------------------------------------------------------------------------------
 
 /*----------------------------------------------------------------------------------------------------------------------
 .cadastrarOperario();
@@ -173,7 +173,11 @@ void GerenciaBD::cadastrarOperario(mFuncionario novo){
     int tipo = 1;
     arq.open("funcionarios.txt", ios::app);
     string funcionario;
-    funcionario = to_string(tipo)+","+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+","+to_string(novo.getDiasTrabalhados())+","+to_string(novo.getTotalHorasExtras())+"!\n";            
+    /*Obtém todos os dados do respectivo objeto.
+    *O mesmo se segue para todos os tipos de funcionário.
+    */
+    funcionario = to_string(tipo)+","+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+","+to_string(novo.getTotalHorasExtras())+","+to_string(novo.getDiasTrabalhados())+"!\n";            
+    /*Insere os dados no Arq da base de dados.*/
     arq << funcionario;
     arq.close();
 };
@@ -183,7 +187,7 @@ void GerenciaBD::cadastrarGerente(c1Gerente novo){
     int tipo = 2;
     arq.open("funcionarios.txt", ios::app);
     string funcionario;
-    funcionario = to_string(tipo)+","+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+","+to_string(novo.getDiasTrabalhados())+","+to_string(novo.getTotalHorasExtras())+","+novo.getAreaSupervisao()+"!\n";
+    funcionario = to_string(tipo)+","+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+","+to_string(novo.getTotalHorasExtras())+","+to_string(novo.getDiasTrabalhados())+","+novo.getAreaSupervisao()+"!\n";
     arq << funcionario;
     arq.close();
 };
@@ -198,7 +202,7 @@ void GerenciaBD::cadastrarDiretor(c2Diretor novo){
         nova.erase(nova.find("!"), 1);
         novo.setAreaFormacao(nova);
     }
-    funcionario = to_string(tipo)+","+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+","+to_string(novo.getDiasTrabalhados())+","+to_string(novo.getTotalHorasExtras())+","+novo.getAreaSupervisao()+","+novo.getAreaFormacao()+"!\n";
+    funcionario = to_string(tipo)+","+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+","+to_string(novo.getTotalHorasExtras())+","+to_string(novo.getDiasTrabalhados())+","+novo.getAreaSupervisao()+","+novo.getAreaFormacao()+"!\n";
     arq << funcionario;
     arq.close();
 };
@@ -208,11 +212,12 @@ void GerenciaBD::cadastrarPresidente(c3Presidente novo){
     int tipo = 4;
     arq.open("funcionarios.txt", ios::app);
     string funcionario;
-    funcionario = to_string(tipo)+","+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+","+to_string(novo.getDiasTrabalhados())+","+to_string(novo.getTotalHorasExtras())+","+novo.getAreaSupervisao()+","+novo.getAreaFormacao()+","+novo.getFormacaoMax()+"!\n";
+    funcionario = to_string(tipo)+","+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+","+to_string(novo.getTotalHorasExtras())+","+to_string(novo.getDiasTrabalhados())+","+novo.getAreaSupervisao()+","+novo.getAreaFormacao()+","+novo.getFormacaoMax()+"!\n";
     arq << funcionario;
     arq.close();
 };
 
+//----------------------------------------------------------------------------------------------------------------------
 
 /*
 ----------------------------------------------------------------------------------------------------------------------
@@ -354,6 +359,18 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
     
 
     };
+//---------------------------------------------------------------------------------------------------------------------
+
+/*
+----------------------------------------------------------------------------------------------------------------------
+.removerFuncionario();
+----------------------------------------------------------------------------------------------------------------------
+    Essa função, já tratada na main para não ser possível remover um presidente ou diretor,
+    recebe como parâmetro o código do funcionário que será removido.
+    Será buscado linha a linha no arquivo de funcionários, e caso o código do funcionário
+    seja enctrado, igual ao recebido como parâmetro, a linha será removida.
+
+*/
 void GerenciaBD::removerFuncionario(string codigo1){ 
     string linha;
     int funcEncontrado = 0;
@@ -1094,6 +1111,20 @@ c3Presidente GerenciaBD::consultaPresidente(string codigo1){
     }
    
 }
+
+/*--------------------------------------------------------------------------------------------------------------------
+.atualizaOperario();
+.atualizaGerente();
+.atualizaDiretor();
+.atualizaPresidente();
+
+Essas funções possuem execução semelhante. Ao receber o respectivo objeto como parâmetro,
+a função irá buscar no Banco de Dados pelo mesmo código - removerá e depois irá adicionar
+o mesmo objeto, atualizado, passado por parametro, no Banco de Dados.
+
+
+*///--------------------------------------------------------------------------------------------------------------------
+
 void GerenciaBD::atualizaOperario(mFuncionario operario){
     removerFuncionario(operario.getCodigo());
     cadastrarOperario(operario);
@@ -1110,6 +1141,26 @@ void GerenciaBD::atualizaPresidente(c3Presidente presidente){
     removerFuncionario(presidente.getCodigo());
     cadastrarPresidente(presidente);
 }
+
+/*--------------------------------------------------------------------------------------------------------------------
+.tirarFotografia();
+Essa função é utilizada para tirar fotografias de todos os funcionários quando cadastrados no sistema.
+Essa função irá utilizar o programa "cam.exe" para tirar fotografias.
+As fotos, a partir dessa função, também serão renomeadas para a designação do funcionário juntamente com o seu código,
+para que possam ser encontradas posteriormente. O padrão seguido foi:
+
+    -> "tipoFuncionario"+"_"+"codigo"+".png"
+
+Após a tiragem das fotos, elas serão armazenadas no diretório respectivo para cada tipo de funcionário,
+sendo eles:
+
+    -> "fotoOperarios/"
+    -> "fotoGerentes/"
+    -> "fotoDiretores/"
+    -> "fotoPresidentes/"
+
+*///--------------------------------------------------------------------------------------------------------------------
+
 void GerenciaBD::tirarFotografia(int designacao, string codigo){
 
    
@@ -1140,12 +1191,24 @@ void GerenciaBD::tirarFotografia(int designacao, string codigo){
         tempCmd = "Copy .\\"+novoNome+" fotoPresidentes\\"+novoNome;
     }
     system(tempCmd.c_str());
+    tempCmd = "del "+novoNome;
+    system(tempCmd.c_str());
     system("cls");
     cout << "Foto tirada com sucesso!\n";
     system("pause");
 
     
 }
+
+
+/*--------------------------------------------------------------------------------------------------------------------
+.retornaTipo();
+Essa funçãp é bastante utilizada no decorrer do programa, comumente, para suporte.
+Ao passar como parâmetro o código string do funcinário, ela retorna o tipo do funcionário.
+É considerado que para cada linha do arquivo de texto, o código do funcionário é o primeiro atributo
+e está na primeira coluna.
+*///--------------------------------------------------------------------------------------------------------------------
+
 int GerenciaBD::retornaTipo(string codigo1){
     string linha;
     fstream arq;
@@ -1174,6 +1237,14 @@ int GerenciaBD::retornaTipo(string codigo1){
     }
     return -1;
 }
+
+/*--------------------------------------------------------------------------------------------------------------------
+.aumentaSalarios();
+Essa função é uma rotina de aumento para todos os funcionários contidos no banco de dados.
+Todos os salários, de todas as designações, são aumentados em valores pré-determinados no objeto
+"aumentoSalario".
+*///--------------------------------------------------------------------------------------------------------------------
+
 void GerenciaBD::aumentaSalarios(){
 
     
@@ -1240,14 +1311,23 @@ void GerenciaBD::aumentaSalarios(){
             this->atualizaPresidente(tempPresidente);
             cout << "Salario atualizado de " << tempPresidente.getNome() << " (Presidente)" <<": " << tempPresidente.getSalario() << endl;
             cout << "----------------------------------------------------\n";
-        }else{
-            cout << "Erro ao aumentar salario de: \n" << cod[i] << endl;
         }
-
 
     }
                 
 }
+
+
+/*--------------------------------------------------------------------------------------------------------------------
+.aumentaSalarioEspecifico();
+Essa rotina receberá como parâmetro um código de funcionário e aumentará o salário desse funcionário.
+O aumento é dado utilizando a função aumentaSalario da classe AumentoSalario.
+O valor do aumento é pré-estabelecido no corpo do objeto AumentoSalario.
+
+Ao exectuar a função aumentaSalarioEspecifico, o salário do funcionário será atualizado no Banco de Dados,
+e o valor antigo do salário bem como o novo salário será exibido na tela.
+
+*///--------------------------------------------------------------------------------------------------------------------
 void GerenciaBD::aumentaSalarioEspecifico(string codigo){
     int tipo = retornaTipo(codigo);
     if(tipo == 1){
@@ -1301,9 +1381,13 @@ void GerenciaBD::aumentaSalarioEspecifico(string codigo){
 };
 
 
-/*
-Essa função aleatoriza todas as horas extras e todos os dias trabalhados de todos os funcionários.
-*/
+/*--------------------------------------------------------------------------------------------------------------------
+aleatorizaHD();
+Essa função aleatoriza todas as horas extras e todos os dias trabalhados de todos os funcionários NO BANCO DE DADOS.
+Possui o objetivo de aleatorizar os valores das horas extras e dias trabalhados de todos os funcionários existentes, 
+utilizando a função .aleatorio() de cada funcionário.
+
+*///--------------------------------------------------------------------------------------------------------------------
 void GerenciaBD::aleatorizaHD(){
     fstream arq;
     string temp;
@@ -1346,29 +1430,6 @@ void GerenciaBD::aleatorizaHD(){
 
     
 
-  
-//A DICIONARHORASEXTRAS
-
-/*
-
-e) Calcular Folha Salarial: Responsável por realizar o cálculo de salário de todos os funcionários
-para um determinado mês. Assim, será solicitado do usuário o mês a que se refere a folha
-salarial. Caso a folha para este mês já tenha sido calculada, exibir mensagem alertando que a
-folha para o seguinte mês já foi calculada.
 
 
-Deverá ser executada uma rotina que irá gerar
-aleatoriamente, mas apenas uma única vez, as informações como o número de dias
-trabalhados no mês pelo funcionário e o número de horas extras trabalhadas. Usar regra que a
-hora-extra equivale ao dobro daquilo pago para hora normal. Deverá também ser contabilizado
-os descontos relativos ao imposto de renda e previdência social.
-
-
-
-
-
-
-
-
-*/
 
