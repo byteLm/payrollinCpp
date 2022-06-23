@@ -399,6 +399,18 @@ void GerenciaBD::removerFuncionario(string codigo1){
         }
 
 };
+
+
+/*
+----------------------------------------------------------------------------------------------------------------------
+.editaFuncionario();
+----------------------------------------------------------------------------------------------------------------------
+    Essa função, para cada tipo de funcionário, é chamada uma função diferente, a qual irá
+    atribuir um funcionário temporário em sua execução. Esse funcionário no decorrer da rotina
+    irá receber por get e set todos as informações que o usuário deseje alterar.
+    No final, quando o usuário não quiser fazer mais nenhuma alteração, o funcionário temporário
+    será substituído pelo funcionário original.
+*/
 void GerenciaBD::editaFuncionario(string codigo1, int tipo){
     if(tipo == 1){
         mFuncionario tempFuncionario = mFuncionario();
@@ -737,6 +749,24 @@ void GerenciaBD::editaFuncionario(string codigo1, int tipo){
         cout << "Operação cancelada!\n";
     }
 }  
+
+
+/*
+----------------------------------------------------------------------------------------------------------------------
+.consultaOperario();
+.consultaDiretor();
+.consultaPresidente();
+.consultaGernte();
+----------------------------------------------------------------------------------------------------------------------
+    São rotinas que irão retornar para a main um objeto do seu tipo, passando como parametro o codigo do funcionario
+    que deseja consultar.
+    Será buscado no arquivo de dados o código de funcionário, linha a linha - na linha desejada, foi 
+    criado um sistema que irá atribuir cada atributo a uma variável temporária respectiva.
+    Ao final, é retorna o objeto do tipo desejado com tais atributos.
+
+    É extramente importante, para a execução correta dessa rotina, que o padrão de salvamento dos dados
+    seja o pré-determinado.
+*/
 mFuncionario GerenciaBD::consultaOperario(string codigo1){
     string linha;
     string tempString = "";
