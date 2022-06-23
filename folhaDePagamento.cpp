@@ -4,7 +4,7 @@ FolhaDePagamento::FolhaDePagamento(){
 };
 FolhaDePagamento::~FolhaDePagamento(){
 };
-float FolhaDePagamento::calculaPagamentoFunc(float salario, float horasExtras, int diasTrabalhados){
+float FolhaDePagamento::calculaPagamentoFunc(float salario, int horasExtras, int diasTrabalhados){
     
     float valorHora = salario/diasTrabalhados/8;
     float valorHoraExtra = valorHora*2;
@@ -34,7 +34,7 @@ float FolhaDePagamento::calculaPagamentoFunc(float salario, float horasExtras, i
     
 
 };
-void FolhaDePagamento::folhaDescritaFunc(float salario, float horasExtras, int diasTrabalhados, string nome, string codigo){
+void FolhaDePagamento::folhaDescritaFunc(float salario, int horasExtras, int diasTrabalhados, string nome, string codigo){
     float valorHora = salario/diasTrabalhados/8;
     float valorHoraExtra = valorHora*2;
     float totalhorasExtras = horasExtras;

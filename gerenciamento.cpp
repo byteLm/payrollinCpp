@@ -9,7 +9,7 @@ GerenciaBD::~GerenciaBD(){
 
 /*
 ---------------------------------------------------------------------------------------------------------------------
-.listarFuncionarios();✅
+.listarFuncionarios();
 Essa classe irá imprimir todos os dados disponíveis no banco de dados sobre determinados funcionários
 Será possível com ela imprimir:
 -> Todos os funcionários;
