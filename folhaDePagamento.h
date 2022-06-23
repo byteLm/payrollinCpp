@@ -1,4 +1,5 @@
 #include "gerenciamento.h"
+#include <windows.h>
 #include "time.h"
 
 class FolhaDePagamento{
@@ -6,8 +7,8 @@ class FolhaDePagamento{
     public:
         FolhaDePagamento();
         ~FolhaDePagamento();
-        float calculaPagamentoFunc(float salario, float horas);
-        void folhaDescritaFunc(float salario, float horas);
+        float calculaPagamentoFunc(float salario, float horasExtras, int diasTrabalhados);
+        void folhaDescritaFunc(float salario, float horasExtras, int diasTrabalhados);
         int calculaFolhaEmpresa(int mesRef);
     private:
         float salarioMinimo = 1212.00;

@@ -1,5 +1,5 @@
 #include "gerenciamento.h"
-
+#include <windows.h>
 #include <vector>
 
 GerenciaBD::GerenciaBD(){
@@ -173,7 +173,7 @@ void GerenciaBD::cadastrarOperario(mFuncionario novo){
     int tipo = 1;
     arq.open("funcionarios.txt", ios::app);
     string funcionario;
-    funcionario = to_string(tipo)+","+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+"!\n";            
+    funcionario = to_string(tipo)+","+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+","+to_string(novo.getDiasTrabalhados())+","+to_string(novo.getTotalHorasExtras())+"!\n";            
     arq << funcionario;
     arq.close();
 };
@@ -183,7 +183,7 @@ void GerenciaBD::cadastrarGerente(c1Gerente novo){
     int tipo = 2;
     arq.open("funcionarios.txt", ios::app);
     string funcionario;
-    funcionario = to_string(tipo)+","+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+","+novo.getAreaSupervisao()+"!\n";
+    funcionario = to_string(tipo)+","+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+","+to_string(novo.getDiasTrabalhados())+","+to_string(novo.getTotalHorasExtras())+","+novo.getAreaSupervisao()+"!\n";
     arq << funcionario;
     arq.close();
 };
@@ -198,7 +198,7 @@ void GerenciaBD::cadastrarDiretor(c2Diretor novo){
         nova.erase(nova.find("!"), 1);
         novo.setAreaFormacao(nova);
     }
-    funcionario = to_string(tipo)+","+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+","+novo.getAreaSupervisao()+","+novo.getAreaFormacao()+"!\n";
+    funcionario = to_string(tipo)+","+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+","+to_string(novo.getDiasTrabalhados())+","+to_string(novo.getTotalHorasExtras())+","+novo.getAreaSupervisao()+","+novo.getAreaFormacao()+"!\n";
     arq << funcionario;
     arq.close();
 };
@@ -208,7 +208,7 @@ void GerenciaBD::cadastrarPresidente(c3Presidente novo){
     int tipo = 4;
     arq.open("funcionarios.txt", ios::app);
     string funcionario;
-    funcionario = to_string(tipo)+","+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+","+novo.getAreaSupervisao()+","+novo.getAreaFormacao()+","+novo.getFormacaoMax()+"!\n";
+    funcionario = to_string(tipo)+","+novo.getCodigo()+","+novo.getNome()+","+novo.getEndereco()+","+novo.getTelefone()+","+novo.getDataIngresso()+","+to_string(novo.getSalario())+","+to_string(novo.getDiasTrabalhados())+","+to_string(novo.getTotalHorasExtras())+","+novo.getAreaSupervisao()+","+novo.getAreaFormacao()+","+novo.getFormacaoMax()+"!\n";
     arq << funcionario;
     arq.close();
 };
@@ -276,7 +276,7 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
     switch(tipo){
         case 1:
             // Para o arquivo:
-            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+"!\n";            
+            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+",0,"+"23"+"!\n";            
             arq << funcionario;
             arq.close();
             break;
@@ -290,7 +290,7 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
             if(areaSupervisao.find("!")!= string::npos){
                 areaSupervisao.erase(areaSupervisao.find("!"), 1);
             }
-            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaSupervisao+"!\n";            
+            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+",0,"+"23"+","+areaSupervisao+"!\n";            
             arq << funcionario;
             arq.close();
             break;
@@ -311,7 +311,7 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
                 areaFormacao.erase(areaFormacao.find("!"), 1);
             }
             // Para o arquivo:
-            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaSupervisao+","+areaFormacao+"!\n";            
+            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+",0,"+"23"+","+areaSupervisao+","+areaFormacao+"!\n";            
             arq << funcionario;
             arq.close();
             break;
@@ -336,11 +336,21 @@ void GerenciaBD::cadastrarFuncionario(int tipo){
                 formMax.erase(formMax.find("!"), 1);
             }
             // Para o arquivo:
-            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+","+areaSupervisao+","+areaFormacao+","+formMax+"!\n";           
+            funcionario = "\n"+to_string(tipo)+","+codigo+","+nome+","+endereco+","+telefone+","+dataIngresso+","+to_string(salario)+",0,"+"23"+","+areaSupervisao+","+areaFormacao+","+formMax+"!\n";           
             arq << funcionario;
             arq.close();
             break;
     }
+    cout << "Deseja adicionar uma fotografia do funcionario? (s/n) \n";
+    char opcao;
+    cin >> opcao;
+    
+    if(opcao == 's'|| opcao == 'S'){
+        this->tirarFotografia(tipo, codigo);
+    }else{
+        cout << "Fotografia não adicionada.\n";
+    }
+
     
 
     };
@@ -724,6 +734,8 @@ mFuncionario GerenciaBD::consultaOperario(string codigo1){
     string endereco = "";
     string telefone = "";
     string dataIngresso = "";
+    string totalHorasExtras = "";
+    string diasTrabalhados = "";
     
         
     arq.open("funcionarios.txt", ios::in);
@@ -759,6 +771,12 @@ mFuncionario GerenciaBD::consultaOperario(string codigo1){
                                 salario += tempString[i];
                                 break;
                             case 8:
+                                totalHorasExtras += tempString[i];
+                                break;
+                            case 9:
+                                diasTrabalhados += tempString[i];
+                                break;
+                            case 10:
                                 break;
                         }
                         if(tempString[i]=='!'){
@@ -768,6 +786,8 @@ mFuncionario GerenciaBD::consultaOperario(string codigo1){
                             tempOperario.setTelefone(telefone);
                             tempOperario.setDataIngresso(dataIngresso);
                             tempOperario.setSalario(stof(salario));
+                            tempOperario.setTotalHorasExtras(stoi(totalHorasExtras));
+                            tempOperario.setDiasTrabalhados(stoi(diasTrabalhados));
                             return tempOperario;
                             break;
                         }
@@ -796,6 +816,9 @@ c1Gerente GerenciaBD::consultaGerente(string codigo1){
     string telefone = "";
     string dataIngresso = "";
     string areaSupervisao = "";
+    string diasTrabalhados = "";
+    string totalHorasExtras = "";
+
     
         
     arq.open("funcionarios.txt", ios::in);
@@ -832,9 +855,15 @@ c1Gerente GerenciaBD::consultaGerente(string codigo1){
                                 salario += tempString[i];
                                 break;
                             case 8:
-                                areaSupervisao += tempString[i];
+                                totalHorasExtras += tempString[i];
                                 break;
                             case 9:
+                                diasTrabalhados += tempString[i];
+                                break;
+                            case 11:
+                                areaSupervisao += tempString[i];
+                                break;
+                            case 12:
                                 break;    
                         }
                         if(tempString[i]=='!'){
@@ -844,6 +873,8 @@ c1Gerente GerenciaBD::consultaGerente(string codigo1){
                             tempGerente.setTelefone(telefone);
                             tempGerente.setDataIngresso(dataIngresso);
                             tempGerente.setSalario(stof(salario));
+                            tempGerente.setTotalHorasExtras(stoi(totalHorasExtras));
+                            tempGerente.setDiasTrabalhados(stoi(diasTrabalhados));
                             if(areaSupervisao.find("!")!=string::npos){
                                 areaSupervisao.erase(areaSupervisao.find("!"), 1);
                             }
@@ -880,6 +911,9 @@ c2Diretor GerenciaBD::consultaDiretor(string codigo1){
     string dataIngresso = "";
     string areaSupervisao = "";
     string areaFormacao = "";
+    string diasTrabalhados = "";
+    string totalHorasExtras = "";
+
     
 
         
@@ -917,12 +951,18 @@ c2Diretor GerenciaBD::consultaDiretor(string codigo1){
                                 salario += tempString[i];
                                 break;
                             case 8:
-                                areaSupervisao += tempString[i];
+                                totalHorasExtras += tempString[i];
                                 break;
                             case 9:
-                                areaFormacao += tempString[i];
+                                diasTrabalhados += tempString[i];
                                 break;
                             case 10:
+                                areaSupervisao += tempString[i];
+                                break;
+                            case 11:
+                                areaFormacao += tempString[i];
+                                break;
+                            case 12:
                                 break;    
                         }
                         if(tempString[i]=='!'){
@@ -937,6 +977,8 @@ c2Diretor GerenciaBD::consultaDiretor(string codigo1){
                             if(areaFormacao.find("!")!=string::npos){
                                 areaFormacao.erase(areaFormacao.find("!"), 1);
                             }
+                            tempDiretor.setDiasTrabalhados(stoi(diasTrabalhados));
+                            tempDiretor.setTotalHorasExtras(stoi(totalHorasExtras));
                             return tempDiretor;
                             break;
                         }
@@ -952,6 +994,7 @@ c2Diretor GerenciaBD::consultaDiretor(string codigo1){
     }
 }
 c3Presidente GerenciaBD::consultaPresidente(string codigo1){
+
     string linha;
     string tempString = "";
     int funcEncontrado = 0;
@@ -968,6 +1011,9 @@ c3Presidente GerenciaBD::consultaPresidente(string codigo1){
     string areaSupervisao = "";
     string areaFormacao = "";
     string formMax = "";
+    string diasTrabalhados = "";
+    string totalHorasExtras = "";
+
 
     arq.open("funcionarios.txt", ios::in);    
     if(arq.is_open()){
@@ -1001,14 +1047,20 @@ c3Presidente GerenciaBD::consultaPresidente(string codigo1){
                                 salario += tempString[i];
                                 break;
                             case 8:
-                                areaSupervisao += tempString[i];
+                                totalHorasExtras += tempString[i];
                                 break;
                             case 9:
+                                diasTrabalhados += tempString[i];
+                                break;
+                            case 10:
+                                areaSupervisao += tempString[i];
+                                break;
+                            case 11:
                                 areaFormacao += tempString[i];
                                 break;  
-                            case 10:
+                            case 12:
                                 formMax += tempString[i];
-                            case 11:
+                            case 13:
                                 break; 
                         }
                         if(tempString[i]=='!'){
@@ -1058,26 +1110,41 @@ void GerenciaBD::atualizaPresidente(c3Presidente presidente){
     removerFuncionario(presidente.getCodigo());
     cadastrarPresidente(presidente);
 }
-void GerenciaBD::tirarFotografia(int designacao){
+void GerenciaBD::tirarFotografia(int designacao, string codigo){
+
+   
+    bool sair = false;
+    while(sair != true){
+        system(".\\cam");
+        system(".\\tempFoto.png");
+        cout << "Deseja tirar outra foto? (s/n)\n";
+        char opcao;
+        cin >> opcao;
+        if(opcao == 's'){
+            sair = false;
+        }else{
+            sair = true;
+        }
+    };      
+    string novoNome = to_string(designacao) + "_" + codigo + ".png";
+    rename("tempFoto.png", novoNome.c_str());
+    string tempCmd;
+    
     if(designacao == 1){
-        //executa um comando no terminal:
-        bool sair = false;
-        while(sair != true){
-            system(".\\cam");
-            system(".\\tempFoto.png");
-            cout << "Deseja tirar outra foto? (s/n)\n";
-            char opcao;
-            cin >> opcao;
-            if(opcao == 's'){
-                sair = false;
-            }else{
-                sair = true;
-            }
-        };
-        
-
-
+       tempCmd = "Copy .\\" + novoNome + " fotoOperarios\\" + novoNome;
+    }else if(designacao == 2){
+        tempCmd = "Copy .\\" + novoNome + " fotoGerentes\\" + novoNome;
+    }else if(designacao == 3){
+        tempCmd = "Copy " + novoNome + " fotoDiretores\\" + novoNome;
+    }else if(designacao == 4){
+        tempCmd = "Copy .\\"+novoNome+" fotoPresidentes\\"+novoNome;
     }
+    system(tempCmd.c_str());
+    system("cls");
+    cout << "Foto tirada com sucesso!\n";
+    system("pause");
+
+    
 }
 int GerenciaBD::retornaTipo(string codigo1){
     string linha;
@@ -1110,75 +1177,75 @@ int GerenciaBD::retornaTipo(string codigo1){
 void GerenciaBD::aumentaSalarios(){
 
     
-        fstream arq;
-        string temp;
-        int tipo;
-        int qt;
-        string cod[100];
-        qt = -1;
-        arq.open("funcionarios.txt", ios::in);
-        if(arq.is_open()){
-            while(getline(arq, temp)){
-                qt++;
-                for(int i=2; temp[i]!=','; i++){
-                    cod[qt] += temp[i];
-                }
-             }
-        }
-        arq.close();
-
-        aumentoSalario aumento;
-
-        for(int i=0; i<=qt; i++){
-            tipo = retornaTipo(cod[i]);
-            if(tipo == 1){
-                cout << "----------------------------------------------------\n";
-                this->tempOperario = this->consultaOperario(cod[i]);
-                cout << "Salario antigo de " << tempOperario.getNome() << " (Operador)" <<": " << tempOperario.getSalario() << endl;
-                int novoSalario = aumento.aumentaSalario(1, tempOperario.getSalario());
-                tempOperario.setSalario(novoSalario);
-                this->atualizaOperario(tempOperario);
-                cout << "Salario atualizado de " << tempOperario.getNome() << " (Operador)" <<": " << tempOperario.getSalario() << endl;
-                cout << "----------------------------------------------------\n";
-
-            }else if(tipo == 2){
-                cout << "----------------------------------------------------\n";
-                this->tempGerente = this->consultaGerente(cod[i]);
-                cout << "Salario antigo de " << tempGerente.getNome() << " (Gerente)" <<": " << tempGerente.getSalario() << endl;
-                int novoSalario = aumento.aumentaSalario(2, tempGerente.getSalario());  
-                tempGerente.setSalario(novoSalario);
-                if(tempGerente.getAreaSupervisao().find("!")!=string::npos){
-                    string temp = tempGerente.getAreaSupervisao();
-                    temp.erase(temp.find("!"), 1);
-                    tempGerente.setAreaSupervisao(temp);
-                }
-                this->atualizaGerente(tempGerente);
-                cout << "Salario atualizado de " << tempGerente.getNome() << " (Gerente)" <<": " << tempGerente.getSalario() << endl;
-                cout << "----------------------------------------------------\n";
-            }else if(tipo == 3){
-                cout << "----------------------------------------------------\n";
-                this->tempDiretor = this->consultaDiretor(cod[i]);
-                cout << "Salario antigo de " << tempDiretor.getNome() << " (Diretor)" <<": " << tempDiretor.getSalario() << endl;
-                int novoSalario = aumento.aumentaSalario(3, tempDiretor.getSalario());
-                tempDiretor.setSalario(novoSalario);
-                this->atualizaDiretor(tempDiretor);
-                cout << "Salario atualizado de " << tempDiretor.getNome() << " (Diretor)" <<": " << tempDiretor.getSalario() << endl;
-                cout << "----------------------------------------------------\n";
-            }else if(tipo == 4){
-                cout << "----------------------------------------------------\n";
-                this->tempPresidente = this->consultaPresidente(cod[i]);
-                cout << "Salario antigo de " << tempPresidente.getNome() << " (Presidente)" <<": " << tempPresidente.getSalario() << endl;
-                int novoSalario = aumento.aumentaSalario(4, tempPresidente.getSalario());
-                tempPresidente.setSalario(novoSalario);
-                this->atualizaPresidente(tempPresidente);
-                cout << "Salario atualizado de " << tempPresidente.getNome() << " (Presidente)" <<": " << tempPresidente.getSalario() << endl;
-                cout << "----------------------------------------------------\n";
-            }else{
-                cout << "Erro ao aumentar salario de: \n" << cod[i] << endl;
+    fstream arq;
+    string temp;
+    int tipo;
+    int qt;
+    string cod[100];
+    qt = -1;
+    arq.open("funcionarios.txt", ios::in);
+    if(arq.is_open()){
+        while(getline(arq, temp)){
+            qt++;
+            for(int i=2; temp[i]!=','; i++){
+                cod[qt] += temp[i];
             }
+            }
+    }
+    arq.close();
 
+    aumentoSalario aumento;
 
+    for(int i=0; i<=qt; i++){
+        tipo = retornaTipo(cod[i]);
+        if(tipo == 1){
+            cout << "----------------------------------------------------\n";
+            this->tempOperario = this->consultaOperario(cod[i]);
+            cout << "Salario antigo de " << tempOperario.getNome() << " (Operador)" <<": " << tempOperario.getSalario() << endl;
+            int novoSalario = aumento.aumentaSalario(1, tempOperario.getSalario());
+            tempOperario.setSalario(novoSalario);
+            this->atualizaOperario(tempOperario);
+            cout << "Salario atualizado de " << tempOperario.getNome() << " (Operador)" <<": " << tempOperario.getSalario() << endl;
+            cout << "----------------------------------------------------\n";
+
+        }else if(tipo == 2){
+            cout << "----------------------------------------------------\n";
+            this->tempGerente = this->consultaGerente(cod[i]);
+            cout << "Salario antigo de " << tempGerente.getNome() << " (Gerente)" <<": " << tempGerente.getSalario() << endl;
+            int novoSalario = aumento.aumentaSalario(2, tempGerente.getSalario());  
+            tempGerente.setSalario(novoSalario);
+            if(tempGerente.getAreaSupervisao().find("!")!=string::npos){
+                string temp = tempGerente.getAreaSupervisao();
+                temp.erase(temp.find("!"), 1);
+                tempGerente.setAreaSupervisao(temp);
+            }
+            this->atualizaGerente(tempGerente);
+            cout << "Salario atualizado de " << tempGerente.getNome() << " (Gerente)" <<": " << tempGerente.getSalario() << endl;
+            cout << "----------------------------------------------------\n";
+        }else if(tipo == 3){
+            cout << "----------------------------------------------------\n";
+            this->tempDiretor = this->consultaDiretor(cod[i]);
+            cout << "Salario antigo de " << tempDiretor.getNome() << " (Diretor)" <<": " << tempDiretor.getSalario() << endl;
+            int novoSalario = aumento.aumentaSalario(3, tempDiretor.getSalario());
+            tempDiretor.setSalario(novoSalario);
+            this->atualizaDiretor(tempDiretor);
+            cout << "Salario atualizado de " << tempDiretor.getNome() << " (Diretor)" <<": " << tempDiretor.getSalario() << endl;
+            cout << "----------------------------------------------------\n";
+        }else if(tipo == 4){
+            cout << "----------------------------------------------------\n";
+            this->tempPresidente = this->consultaPresidente(cod[i]);
+            cout << "Salario antigo de " << tempPresidente.getNome() << " (Presidente)" <<": " << tempPresidente.getSalario() << endl;
+            int novoSalario = aumento.aumentaSalario(4, tempPresidente.getSalario());
+            tempPresidente.setSalario(novoSalario);
+            this->atualizaPresidente(tempPresidente);
+            cout << "Salario atualizado de " << tempPresidente.getNome() << " (Presidente)" <<": " << tempPresidente.getSalario() << endl;
+            cout << "----------------------------------------------------\n";
+        }else{
+            cout << "Erro ao aumentar salario de: \n" << cod[i] << endl;
         }
+
+
+    }
                 
 }
 void GerenciaBD::aumentaSalarioEspecifico(string codigo){
@@ -1233,6 +1300,53 @@ void GerenciaBD::aumentaSalarioEspecifico(string codigo){
 
 };
 
+
+/*
+Essa função aleatoriza todas as horas extras e todos os dias trabalhados de todos os funcionários.
+*/
+void GerenciaBD::aleatorizaHD(){
+    fstream arq;
+    string temp;
+    int qt;
+    string cod[100];
+    qt = -1;
+    arq.open("funcionarios.txt", ios::in);
+    if(arq.is_open()){
+        while(getline(arq, temp)){
+            qt++;
+            for(int i=2; temp[i]!=','; i++){
+                cod[qt] += temp[i];
+            }
+            }
+    }
+    arq.close();
+
+    for(int i=0; i<=qt; i++){
+        int tipo = this->retornaTipo(cod[i]);//ok
+        if(tipo == 1){
+            this->tempOperario = this->consultaOperario(cod[i]);//
+            tempOperario.aleatorio();
+            this->atualizaOperario(tempOperario);
+        }else if(tipo == 2){
+            this->tempGerente = this->consultaGerente(cod[i]);
+            tempGerente.aleatorio();
+            this->atualizaGerente(tempGerente);
+        }else if(tipo == 3){
+            this->tempDiretor = this->consultaDiretor(cod[i]);
+            tempDiretor.aleatorio();
+            this->atualizaDiretor(tempDiretor);
+        }else if(tipo == 4){
+            this->tempPresidente = this->consultaPresidente(cod[i]);
+            tempPresidente.aleatorio();
+            this->atualizaPresidente(tempPresidente);
+        }
+    }
+    
+}
+
+    
+
+  
 //A DICIONARHORASEXTRAS
 
 /*

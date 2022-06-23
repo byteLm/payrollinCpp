@@ -11,9 +11,14 @@ void imprimeMenu(){
     cout << "6 - Listar Funcionarios\n";
     cout << "7 - Calcular salario liquido funcionário\n";
     cout << "8 - Calcular FOLHA DA EMPRESA MENSAL\n";
-    cout << "9 - Sair\n";
+    cout << "9 - Calcular FOLHA DA EMPRESA ANUAL\n";
+    cout << "10 - Sair\n";
+    // Rotina Especial Escondida: case 11 ->
+    // Aleatoriza todos os valores de horas trabalhadas e horas extras dos funcionários.
 }
 int main (){
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
     int opcao, desig;
     int tipoTemp;
     string temp;
@@ -164,22 +169,28 @@ int main (){
                 if(tipoTemp == 1){
                     mFuncionario temporario = gerencia.consultaOperario(temp);
                     FolhaDePagamento calc = FolhaDePagamento();
+                    int totalHorasExtras = temporario.getTotalHorasExtras();
+                    int totalDiasTrabalhados = temporario.getDiasTrabalhados();
                     cout << "Nome: " << temporario.getNome() << endl;
-                    cout << "Salario Liquido: " << calc.calculaPagamentoFunc(temporario.getSalario(), 0) << endl;
+                    cout << "Salario Liquido: " << calc.calculaPagamentoFunc(temporario.getSalario(), totalHorasExtras, totalDiasTrabalhados) << endl;
                     if(opcao == 1){
                         cout << "Folha de Pagamento:\n";
-                        calc.folhaDescritaFunc(temporario.getSalario(), 0);
+                        calc.folhaDescritaFunc(temporario.getSalario(), totalHorasExtras, totalDiasTrabalhados);
                     }
                     calc.~FolhaDePagamento();
                     temporario.~mFuncionario();
                 }else if(tipoTemp == 2){
+                    
                     c1Gerente temporario = gerencia.consultaGerente(temp);
                     FolhaDePagamento calc = FolhaDePagamento();
+                    int totalHorasExtras = temporario.getTotalHorasExtras();
+                    int totalDiasTrabalhados = temporario.getDiasTrabalhados();
+
                     cout << "Nome: " << temporario.getNome() << endl;
-                    cout << "Salario Liquido: " << calc.calculaPagamentoFunc(temporario.getSalario(), 0) << endl;
+                    cout << "Salario Liquido: " << calc.calculaPagamentoFunc(temporario.getSalario(), totalHorasExtras, totalDiasTrabalhados) << endl;
                     if(opcao == 1){
                         cout << "Folha de Pagamento:\n";
-                        calc.folhaDescritaFunc(temporario.getSalario(), 0);
+                        calc.folhaDescritaFunc(temporario.getSalario(), totalHorasExtras, totalDiasTrabalhados);
                     }
                     calc.~FolhaDePagamento();
                     temporario.~c1Gerente();
@@ -187,28 +198,32 @@ int main (){
                 }else if(tipoTemp == 3){
                     c2Diretor temporario = gerencia.consultaDiretor(temp);
                     FolhaDePagamento calc = FolhaDePagamento();
+                    int totalHorasExtras = temporario.getTotalHorasExtras();
+                    int totalDiasTrabalhados = temporario.getDiasTrabalhados();
+
                     cout << "Nome: " << temporario.getNome() << endl;
-                    cout << "Salario Liquido: " << calc.calculaPagamentoFunc(temporario.getSalario(), 0) << endl;
+                    cout << "Salario Liquido: " << calc.calculaPagamentoFunc(temporario.getSalario(), totalHorasExtras, totalHorasExtras) << endl;
                     if(opcao == 1){
                         cout << "Folha de Pagamento:\n";
-                        calc.folhaDescritaFunc(temporario.getSalario(), 0);
+                        calc.folhaDescritaFunc(temporario.getSalario(), totalHorasExtras, totalDiasTrabalhados);
                     }
                     calc.~FolhaDePagamento();
                     temporario.~c2Diretor();
                 }else if(tipoTemp == 4){
                     c2Diretor temporario = gerencia.consultaDiretor(temp);
                     FolhaDePagamento calc = FolhaDePagamento();
+                    int totalHorasExtras = temporario.getTotalHorasExtras();
+                    int totalDiasTrabalhados = temporario.getDiasTrabalhados();
                     cout << "Nome: " << temporario.getNome() << endl;
-                    cout << "Salario Liquido: " << calc.calculaPagamentoFunc(temporario.getSalario(), 0) << endl;
+                    cout << "Salario Liquido: " << calc.calculaPagamentoFunc(temporario.getSalario(), totalHorasExtras, totalDiasTrabalhados) << endl;
                     if(opcao == 1){
                         cout << "Folha de Pagamento:\n";
-                        calc.folhaDescritaFunc(temporario.getSalario(), 0);
+                        calc.folhaDescritaFunc(temporario.getSalario(), totalHorasExtras, totalDiasTrabalhados);
                     }
                     calc.~FolhaDePagamento();
                     temporario.~c2Diretor();
                 }
                 break;
-
             case 8:
                 system("cls");
                 cout << "Você só poderá fazer essa emissão uma vez.\n";
@@ -254,9 +269,14 @@ int main (){
                 system("cls");
                 cout << "Saindo...\n";
                 return 0;
+            case 11:
+                gerencia.aleatorizaHD();
+                cout << "Aleatorizado!\n";
+                break;
             default:
                 cout << "Opção inválida!\n";
                 break;
+            
         }
     }
 }

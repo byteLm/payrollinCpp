@@ -39,18 +39,16 @@ class mFuncionario
         void setSalario(float salario);
         int getTotalHorasExtras();
         void setTotalHorasExtras(float totalHorasExtras);
+        void setDiasTrabalhados(int diasTrabalhados);
+        int getDiasTrabalhados();
+        void aleatorio();
 
 
         virtual void imprime();
 
     protected:
-        string codigo; /*Código do funcionário*/
-        int desig; /*Designição: 
-        1 - Operário;
-        2 - Gerente;
-        3 - Diretor;
-        4 - Presidente;
-        */
+        string codigo;
+        int desig; 
 
         string nome;
         string endereco;
@@ -58,6 +56,7 @@ class mFuncionario
         string dataIngresso;
         float salario;
         int totalHorasExtras;
+        int diasTrabalhados;
 
 
 };

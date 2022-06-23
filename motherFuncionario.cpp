@@ -9,6 +9,8 @@ mFuncionario::mFuncionario(){
     dataIngresso = "";
     salario = 0;
     totalHorasExtras = 0;
+    diasTrabalhados = 0;
+
 }
 mFuncionario::mFuncionario(string codigo, string nome, string endereco, string telefone, string dataIngresso, float salario, int desig){
     this->codigo = codigo;
@@ -72,6 +74,8 @@ void mFuncionario::imprime(){
     cout << "Telefone: " << this->getTelefone() << endl;
     cout << "Endereco: " << this->getEndereco() << endl;
     cout << "Data de ingresso: " << this->getDataIngresso() << endl;
+    cout << "Dias Trabalhados: " << this->getDiasTrabalhados() << endl;
+    cout << "Horas extras: " << this->getTotalHorasExtras() << endl;
     cout << "----------------------------------------------------" << endl;
 }
 void mFuncionario::setTotalHorasExtras(float totalHorasExtras){
@@ -79,4 +83,21 @@ void mFuncionario::setTotalHorasExtras(float totalHorasExtras){
 }
 int mFuncionario::getTotalHorasExtras(){
     return this->totalHorasExtras;
+}
+int mFuncionario::getDiasTrabalhados(){
+    return this->diasTrabalhados;
+}
+/*
+Essa função atribui dias trabalhados aleatorios ao funcionário, bem como
+atribui o valor de horas extras ao funcionário.
+*/
+void mFuncionario::aleatorio(){
+    int diasTrabalhados = rand() % 30;
+    this->setDiasTrabalhados(diasTrabalhados);
+    float horasExtras = rand() % 10;
+    this->setTotalHorasExtras(horasExtras);
+    
+};
+void mFuncionario::setDiasTrabalhados(int diasTrabalhados){
+    this->diasTrabalhados = diasTrabalhados;
 }

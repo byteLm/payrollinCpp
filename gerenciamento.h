@@ -70,14 +70,14 @@ class GerenciaBD : public c3Presidente, ofstream{
 
         void aumentaSalarios();
         void aumentaSalarioEspecifico(string codigo);
-
+        void aleatorizaHD();
         mFuncionario consultaOperario(string codigo);
         c1Gerente consultaGerente(string codigo);
         c2Diretor consultaDiretor(string codigo);
         c3Presidente consultaPresidente(string codigo);
         int retornaTipo(string codigo);
 
-        void tirarFotografia(int designacao);
+        void tirarFotografia(int designacao, string codigo);
         
     protected:
         ofstream arq;
