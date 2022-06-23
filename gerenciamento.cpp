@@ -1457,7 +1457,46 @@ void GerenciaBD::aleatorizaHD(){
     }
     
 }
+void GerenciaBD::tempaleatorizaHD(){
+    
+    fstream arq;
+    string temp;
+    int qt;
+    string cod[100];
+    qt = -1;
+    arq.open("funcionarios2.txt", ios::in);
+    if(arq.is_open()){
+        while(getline(arq, temp)){
+            qt++;
+            for(int i=2; temp[i]!=','; i++){
+                cod[qt] += temp[i];
+            }
+            }
+    }
+    arq.close();
 
+    for(int i=0; i<=qt; i++){
+        int tipo = this->retornaTipo(cod[i]);//ok
+        if(tipo == 1){
+            this->tempOperario = this->consultaOperario(cod[i]);//
+            tempOperario.aleatorio();
+            this->atualizaOperario(tempOperario);
+        }else if(tipo == 2){
+            this->tempGerente = this->consultaGerente(cod[i]);
+            tempGerente.aleatorio();
+            this->atualizaGerente(tempGerente);
+        }else if(tipo == 3){
+            this->tempDiretor = this->consultaDiretor(cod[i]);
+            tempDiretor.aleatorio();
+            this->atualizaDiretor(tempDiretor);
+        }else if(tipo == 4){
+            this->tempPresidente = this->consultaPresidente(cod[i]);
+            tempPresidente.aleatorio();
+            this->atualizaPresidente(tempPresidente);
+        }
+    }
+    
+};
     
 
 

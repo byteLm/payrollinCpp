@@ -4,19 +4,20 @@ FolhaDePagamento::FolhaDePagamento(){
 };
 FolhaDePagamento::~FolhaDePagamento(){
 };
-float FolhaDePagamento::calculaPagamentoFunc(float salario, int horasExtras, int diasTrabalhados){
+float FolhaDePagamento::calculaPagamentoFunc(float salario, float horasExtras, int diasTrabalhados){
     
     float valorHora = salario/diasTrabalhados/8;
     float valorHoraExtra = valorHora*2;
     float totalhorasExtras = horasExtras;
     if(horasExtras!=0){
-        float totalHorasExtras = valorHoraExtra*horasExtras;
+        totalhorasExtras = valorHoraExtra*horasExtras;
     }
 
     float totalSalarioSemDescontos = salario + totalhorasExtras;
     float i = totalSalarioSemDescontos;
     float totalSalarioComDescontos = totalSalarioSemDescontos - (i*(0.3515));
-    
+   
+
     if(diasTrabalhados == 23){
         return totalSalarioComDescontos;
     }else if(diasTrabalhados < 23){
@@ -30,11 +31,13 @@ float FolhaDePagamento::calculaPagamentoFunc(float salario, int horasExtras, int
         totalSalarioComDescontos = totalSalarioSemDescontos - (totalSalarioSemDescontos*(0.3515));
         return totalSalarioComDescontos;
     }
+    return totalSalarioSemDescontos;
+    return 0;
 
     
 
 };
-void FolhaDePagamento::folhaDescritaFunc(float salario, int horasExtras, int diasTrabalhados, string nome, string codigo){
+void FolhaDePagamento::folhaDescritaFunc(float salario, float horasExtras, int diasTrabalhados, string nome, string codigo){
     float valorHora = salario/diasTrabalhados/8;
     float valorHoraExtra = valorHora*2;
     float totalhorasExtras = horasExtras;
@@ -59,7 +62,7 @@ void FolhaDePagamento::folhaDescritaFunc(float salario, int horasExtras, int dia
         
     }
     float i = totalSalarioSemDescontos;
-    totalSalarioComDescontos = totalSalarioSemDescontos - (i*(0.3515));
+    
     
     cout << "Salario bruto para base:" << salario;
     cout << "Salario sem descontos: " << totalSalarioSemDescontos << endl;
@@ -67,7 +70,7 @@ void FolhaDePagamento::folhaDescritaFunc(float salario, int horasExtras, int dia
     cout << "IR:" << salario * 0.115 << endl;
     cout << "Vale Transporte:" << salario * 0.06 << endl;
     cout << "Vale Refeicao:" << salario * 0.1 << endl;
-    cout << "Salario com descontos: " << totalSalarioComDescontos << endl;
+    cout << "Salario com descontos: " << totalSalarioSemDescontos - (i*(0.3515)) << endl;
     cout << "Dias trabalhados (totais): " << diasTrabalhados << endl;
     cout << "Dias trabalhados (descontados): " << diasADescontar << endl;
     cout << "Dias trabalhados (acrescentados): " << diasAAcrescentar << endl;
@@ -109,13 +112,16 @@ void FolhaDePagamento::folhaDescritaFunc(float salario, int horasExtras, int dia
         }
     }
     arq.close();
-    arq.open("folha.html", ios::out);
+    string novoNome = "folha_"+codigo+".html";
+    arq.open(novoNome, ios::out);
     if(arq.is_open()){
         arq << textoHtml;
     }
+    arq.close();
+   
 
 };
-int FolhaDePagamento::calculaFolhaEmpresa(int mesRef){
+float FolhaDePagamento::calculaFolhaEmpresa(int mesRef, int ver){
       
     fstream arq;
     string temp;
@@ -134,20 +140,19 @@ int FolhaDePagamento::calculaFolhaEmpresa(int mesRef){
 
 
     string veri = "&&&ULTIMACONSULTAANOEMPRESA&&&:"+mesRefS;
-
     arq.open("funcionarios.txt", ios::in);
     if(arq.is_open()){
-        
-    while(getline(arq, temp)){
-        if(jaEmitido){
-            cout<< "Não foi possível emitir. Já emitido em: " << endl;
-            cout << temp << endl;
-            return 1;
+            
+        while(getline(arq, temp)){
+            if(jaEmitido){
+                cout<< "Não foi possível emitir. Já emitido em: " << endl;
+                cout << temp << endl;
+                return 1;
+            }
+            if(temp.find(veri) != string::npos){
+                jaEmitido = 1;
+            }
         }
-        if(temp.find(veri) != string::npos){
-            jaEmitido = 1;
-        }
-    }
     
     }
     arq.close();
@@ -184,7 +189,7 @@ int FolhaDePagamento::calculaFolhaEmpresa(int mesRef){
             salarioLiquido = calculaPagamentoFunc(salario, horasExtras, diasTrabalhados);
             totalBruto += salario;
             totalLiquido += salarioLiquido;
-            tempOperario.~mFuncionario();
+            
         }else if(tipo == 2){
             c1Gerente tempGerente = gerencia.consultaGerente(cod[i]);
             salario = tempGerente.getSalario();
@@ -193,7 +198,7 @@ int FolhaDePagamento::calculaFolhaEmpresa(int mesRef){
             salarioLiquido = calculaPagamentoFunc(salario, horasExtras, diasTrabalhados);
             totalBruto += salario;
             totalLiquido += salarioLiquido;
-            tempGerente.~c1Gerente();
+           
 
         }else if(tipo == 3){
             c2Diretor tempDiretor = gerencia.consultaDiretor(cod[i]);
@@ -203,7 +208,7 @@ int FolhaDePagamento::calculaFolhaEmpresa(int mesRef){
             salarioLiquido = calculaPagamentoFunc(salario, horasExtras, diasTrabalhados);
             totalBruto += salario;
             totalLiquido += salarioLiquido;
-            tempDiretor.~c2Diretor();
+            
         }else if(tipo == 4){
             c3Presidente tempPresidente = gerencia.consultaPresidente(cod[i]);
             salario = tempPresidente.getSalario();
@@ -211,8 +216,7 @@ int FolhaDePagamento::calculaFolhaEmpresa(int mesRef){
             diasTrabalhados = tempPresidente.getDiasTrabalhados();
             salarioLiquido = calculaPagamentoFunc(salario, horasExtras, diasTrabalhados);
             totalBruto += salario;
-            totalLiquido += salarioLiquido;
-            tempPresidente.~c3Presidente();
+            
         }
 
     }
@@ -231,21 +235,25 @@ int FolhaDePagamento::calculaFolhaEmpresa(int mesRef){
         arq << dataAtual << endl; 
     }
     arq.close();
-
-    cout << "Folha de pagamento emitida com sucesso." << endl;
-    cout << "Total bruto: " << totalBruto << endl;
-    cout << "Total liquido: " << totalLiquido << endl;
-    cout << "Mes de referencia: " << mesRefS << endl;
-    cout << "Ano de referencia: " << tm.tm_year + 1900 << endl;
-    cout << "Data de emissão: " << tm.tm_mday << "/" << tm.tm_mon + 1 << "/" << tm.tm_year + 1900 << endl;
-    cout << "Hora de emissão: " << tm.tm_hour << ":" << tm.tm_min << ":" << tm.tm_sec << endl;
-    cout << "----------------------------------------------------" << endl;
+    if(ver == -1){
+        cout << "Folha de pagamento emitida com sucesso!" << endl;
+    }else{
+        cout << "Folha de pagamento emitida com sucesso." << endl;
+        cout << "Total bruto: " << totalBruto << endl;
+        cout << "Total liquido: " << totalBruto - (totalBruto*0.3515) << endl;
+        cout << "Mes de referencia: " << mesRefS << endl;
+        cout << "Ano de referencia: " << tm.tm_year + 1900 << endl;
+        cout << "Data de emissão: " << tm.tm_mday << "/" << tm.tm_mon + 1 << "/" << tm.tm_year + 1900 << endl;
+        cout << "Hora de emissão: " << tm.tm_hour << ":" << tm.tm_min << ":" << tm.tm_sec << endl;
+        cout << "----------------------------------------------------" << endl;
+    }
+    
 
 
     arq.open("logEmissao"+mesRefS+".txt", ios::app);
     arq << "Folha de pagamento emitida com sucesso." << endl;
     arq << "Total bruto: " << totalBruto << endl;
-    arq << "Total liquido: " << totalLiquido << endl;
+    arq << "Total liquido: " << totalBruto - (totalBruto*0.3515) << endl;
     arq << "Mes de referencia: " << mesRefS << endl;
     arq << "Ano de referencia: " << tm.tm_year + 1900 << endl;
     arq << "Data de emissão: " << tm.tm_mday << "/" << tm.tm_mon + 1 << "/" << tm.tm_year + 1900 << endl;
@@ -256,7 +264,37 @@ int FolhaDePagamento::calculaFolhaEmpresa(int mesRef){
         arq << cod[i] << endl;
     }
     arq.close();
-
-
-    return 0;
+    if(totalBruto < -1000000.0 || totalBruto > 1000000.0){
+        return 10325.00;
+    }else{
+        return totalBruto;
+    }
+    
 };
+
+
+
+
+float FolhaDePagamento::simulacaoAnual(){
+
+    fstream arq;
+    float totalBrutoAnual = 0.0;
+    FolhaDePagamento temp;
+    GerenciaBD gerencia;
+
+    for(int i = 1; i <= 12; i++){
+        totalBrutoAnual += temp.calculaFolhaEmpresa(i, -1);
+        gerencia.aleatorizaHD();
+    } 
+    cout << "FOLHA ANUAL COM TODOS OS MESES" << endl;
+    if(totalBrutoAnual < -1000000.00 || totalBrutoAnual > 1000000.00){
+        cout << "Total bruto: " << "inválido, valores incongruentes." << endl;
+    }else{
+        cout << "Total bruto: " << totalBrutoAnual << endl;
+        cout << "Total liquido: " << totalBrutoAnual - (totalBrutoAnual*0.3515) << endl;
+    }
+    
+    
+    return totalBrutoAnual;
+
+}

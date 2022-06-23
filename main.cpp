@@ -10,10 +10,11 @@ void imprimeMenu(){
     cout << "4 - Consultar Funcionario\n";
     cout << "5 - Editar funcionario \n";
     cout << "6 - Listar Funcionarios\n";
-    cout << "7 - Calcular salario liquido funcionário\n";
+    cout << "7 - Calcular salario liquido funcionário/Emitir Arquivo\n";
     cout << "8 - Calcular FOLHA DA EMPRESA MENSAL\n";
-    cout << "9 - Calcular FOLHA DA EMPRESA ANUAL\n";
-    cout << "10 - Sair\n";
+    cout << "9 - Aleatoriza\n";
+    cout << "10 - Folha Anual\n";
+    cout << "11 - Sair\n";
     // Rotina Especial Escondida: case 11 ->
     // Aleatoriza todos os valores de horas trabalhadas e horas extras dos funcionários.
 }
@@ -25,6 +26,7 @@ int main (){
     string temp;
     GerenciaBD gerencia;
 
+    FolhaDePagamento folha;
 
     while(1){ 
         imprimeMenu();
@@ -122,6 +124,7 @@ int main (){
                 }else if(tipoTemp == -1){
                     cout << "Funcionario não encontrado!\n";
                 }
+                system("pause");
                 break;    
             case 5:
                 system("cls");
@@ -147,28 +150,41 @@ int main (){
                 if(tipoTemp == 0){
                     cout << "Listando todos os funcionarios...\n";
                     system("pause");
+                    system("cls");
+
                     gerencia.listarFuncionarios(0, "");
+                    system("pause");
                 }else if(tipoTemp == 1){
                     cout << "Listando somente os operadores...\n";
                     system("pause");
+                     system("cls");
                     gerencia.listarFuncionarios(1, "");
+                    system("pause");
                 }else if(tipoTemp == 2){
                     cout << "Listando somente os gerentes...\n";
                     system("pause");
+                     system("cls");
                     gerencia.listarFuncionarios(2, "");
+                    system("pause");
                 }else if(tipoTemp == 3){
                     cout << "Listando somente os diretores...\n";
                     system("pause");
+                     system("cls");
                     gerencia.listarFuncionarios(3, "");
+                    system("pause");
                 }else if(tipoTemp == 4){
                     cout << "Listando somente os presidentes...\n";
                     system("pause");
+                     system("cls");
                     gerencia.listarFuncionarios(4, "");
+                    system("pause");
                 }else if(tipoTemp == 5){
                     cout << "Digite a palavra-chave desejada: \n";
                     cin.ignore();
                     getline(cin, temp);
+                     system("cls");
                     gerencia.listarFuncionarios(100, temp);
+                    system("pause");
                 }else if(tipoTemp == 6){
                     cout << "Saindo...\n";
                     continue;
@@ -246,6 +262,7 @@ int main (){
                     calc.~FolhaDePagamento();
                     temporario.~c2Diretor();
                 }
+                system("pause");
                 break;
             case 8:
                 system("cls");
@@ -279,8 +296,8 @@ int main (){
                         cout << "Mês inválido.\n";
                         continue;
                     }else{
-                        folha.calculaFolhaEmpresa(mesRef);
-                        folha.~FolhaDePagamento();
+                        folha.calculaFolhaEmpresa(mesRef,0);
+                        system("pause");
                     }
                     
                 }else if(opcao == 2){
@@ -289,13 +306,19 @@ int main (){
                 }
                 break;        
             case 9:
+                gerencia.aleatorizaHD();
+                cout << "Aleatorizado!\n";
+                system("pause");
+                break;
+            case 10:
+                folha.simulacaoAnual();
+                system("pause");
+                break;
+            case 11:
                 system("cls");
                 cout << "Saindo...\n";
                 return 0;
-            case 11:
-                gerencia.aleatorizaHD();
-                cout << "Aleatorizado!\n";
-                break;
+           
             default:
                 cout << "Opção inválida!\n";
                 break;

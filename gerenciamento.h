@@ -56,6 +56,8 @@ class GerenciaBD : public c3Presidente, ofstream{
         void listarFuncionarios();
         void listarFuncionarios(int filtroCargo, string qualquerAtributo);
 
+
+        void tempaleatorizaHD();
         void cadastrarFuncionario(int tipo);
         void cadastrarOperario(mFuncionario novo);
         void cadastrarGerente(c1Gerente novo);
