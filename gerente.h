@@ -18,6 +18,4 @@ class c1Gerente : public mFuncionario{
     protected:
         string areaSupervisao;
 
-
-
 };

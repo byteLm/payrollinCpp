@@ -55,8 +55,7 @@ class GerenciaBD : public c3Presidente, ofstream{
         
         void listarFuncionarios();
         void listarFuncionarios(int filtroCargo, string qualquerAtributo);
-
-
+        int consultaPorData(int dia1, int mes1, int ano1, int dia2, int mes2, int ano2);
         void tempaleatorizaHD();
         void cadastrarFuncionario(int tipo);
         void cadastrarOperario(mFuncionario novo);
@@ -88,6 +87,4 @@ class GerenciaBD : public c3Presidente, ofstream{
         c1Gerente tempGerente;
         c2Diretor tempDiretor;
         c3Presidente tempPresidente;
-        
-
 };

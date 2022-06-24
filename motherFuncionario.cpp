@@ -87,10 +87,6 @@ int mFuncionario::getTotalHorasExtras(){
 int mFuncionario::getDiasTrabalhados(){
     return this->diasTrabalhados;
 }
-/*
-Essa função atribui dias trabalhados aleatorios ao funcionário, bem como
-atribui o valor de horas extras ao funcionário.
-*/
 void mFuncionario::aleatorio(){
     int diasTrabalhados = rand() % 30;
     this->setDiasTrabalhados(diasTrabalhados);

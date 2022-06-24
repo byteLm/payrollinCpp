@@ -1,5 +1,7 @@
-1,20210025232,Luccas Freitas,Rua Pelotas 231,83988254933,22/02/2002,13028.000000,4,23!
-3,424294,Elizer Torres,Rua Bosque das Capivaras 231,8398821-4886,22/05/2000,1000.000000,0,24,Loja 5,Historiador!
-4,79798,Marcelo Yuri,Rua do Limoeiro 213,(83)98822-2244,22/01/2000,5000.000000,1,27,Todo Canto,Tecnologia,Doutorado!
-1,9694,Marilen Silva Guedes,Rua Joao Clemente 203,(83) 98822-4455,22/07/2020,13293.000000,7,25!
-1,555,Marlison Jean,Rua Mariceia Gonzales 234,83988792545,22/07/2020,17053.000000,3,22!
+
+1,20210025232,Luccas Freitas,Rua Pelotas 231,83988254933,22/02/2002,13679.000000,8,3!
+3,424294,Elizer Torres,Rua Bosque das Capivaras 231,8398821-4886,22/05/2000,1200.000000,1,0,Loja 5,Historiador!
+4,79798,Marcelo Yuri,Rua do Limoeiro 213,(83)98822-2244,22/01/2000,6500.000000,5,12,Todo Canto,Tecnologia,Doutorado!
+1,9694,Marilen Silva Guedes,Rua Joao Clemente 203,(83) 98822-4455,22/07/2020,13957.000000,9,10!
+1,555,Marlison Jean,Rua Mariceia Gonzales 234,83988792545,22/07/2020,17905.000000,7,24!
+4,6542,Derzu Omaia,Rua Das Capixabas 234,83 98822-4377,22/07/2009,13000.000000,1,25,Realidade Aumentada,Tecnologia,Doutorado!

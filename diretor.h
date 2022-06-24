@@ -17,10 +17,6 @@ class c2Diretor : public c1Gerente{
 
     protected:
         string areaFormacao;
-    
-    
-
-
 };
 
 

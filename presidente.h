@@ -16,8 +16,5 @@ class c3Presidente : public c2Diretor{
         virtual void imprime();
     protected:
         string FormacaoMax;
-    
-    
-    
 };
 

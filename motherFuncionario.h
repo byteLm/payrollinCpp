@@ -18,8 +18,6 @@ class mFuncionario
     public:
         mFuncionario();
         mFuncionario(string codigo, string nome, string endereco, string telefone, string dataIngresso, float salario, int desig);
-
-        
         //Getters
         string getCodigo();
         int getDesig();
@@ -28,7 +26,8 @@ class mFuncionario
         string getTelefone();
         string getDataIngresso();
         float getSalario();
-
+        int getTotalHorasExtras();
+         int getDiasTrabalhados();
         //Setters
         void setCodigo(string codigo);
         void setDesig(int desig);
@@ -37,19 +36,15 @@ class mFuncionario
         void setTelefone(string telefone);
         void setDataIngresso(string dataIngresso);
         void setSalario(float salario);
-        int getTotalHorasExtras();
         void setTotalHorasExtras(float totalHorasExtras);
         void setDiasTrabalhados(int diasTrabalhados);
-        int getDiasTrabalhados();
+       
         void aleatorio();
-
-
         virtual void imprime();
 
     protected:
         string codigo;
         int desig; 
-
         string nome;
         string endereco;
         string telefone;

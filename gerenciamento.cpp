@@ -1497,6 +1497,202 @@ void GerenciaBD::tempaleatorizaHD(){
     }
     
 };
+int GerenciaBD::consultaPorData(int dia1, int mes1, int ano1, int dia2, int mes2, int ano2){
+    
+    
+ 
+    cout << "Por favor, digite, da primeira data, O DIA: " << endl;
+    cin >> dia1;
+    if(dia1 < 1 || dia1 > 31){
+        cout << "Dia inválido.\n";
+        return 0;
+    }
+    cout << "Por favor, digite, da primeira data, O MÊS: " << endl;
+    cin >> mes1;
+    if(mes1 < 1 || mes1 > 12){
+        cout << "Mês inválido.\n";
+        return 0;
+    }
+    cout << "Por favor, digite, da primeira data, O ANO: " << endl;
+    cin >> ano1;
+    if(ano1 < 0){
+        cout << "Ano inválido.\n";
+        return 0;
+    }
+    cout << "Por favor, digite, da segunda data, O DIA: " << endl;
+    cin >> dia2;
+    if(dia2 < 1 || dia2 > 31){
+        cout << "Dia inválido.\n";
+        return 0;
+    }
+    cout << "Por favor, digite, da segunda data, O MÊS: " << endl;
+    cin >> mes2;
+    if(mes2 < 1 || mes2 > 12){
+        cout << "Mês inválido.\n";
+        return 0;
+    }
+    cout << "Por favor, digite, da segunda data, O ANO: " << endl;
+    cin >> ano2;
+    if(ano2 < 0){
+        cout << "Ano inválido.\n";
+        return 0;
+    }
+    if(ano1 > ano2){
+        cout << "Ano inválido.\n";
+        return 0;
+    }
+    if(ano1 == ano2 && mes1 > mes2){
+        cout << "Mês inválido.\n";
+        return 0;
+    }
+    if(ano1 == ano2 && mes1 == mes2 && dia1 > dia2){
+        cout << "Dia inválido.\n";
+        return 0;
+    }
+    string diaDataMaior, diaDataMenor;
+    string mesDataMaior, mesDataMenor;
+    string anoDataMaior, anoDataMenor;
+    if(dia1 > dia2){
+        diaDataMaior = to_string(dia1);
+        diaDataMenor = to_string(dia2);
+    }else{
+        diaDataMaior = to_string(dia2);
+        diaDataMenor = to_string(dia1);
+    }
+    if(mes1 > mes2){
+        mesDataMaior = to_string(mes1);
+        mesDataMenor = to_string(mes2);
+    }else{
+        mesDataMaior = to_string(mes2);
+        mesDataMenor = to_string(mes1);
+    }
+    if(ano1 > ano2){
+        anoDataMaior = to_string(ano1);
+        anoDataMenor = to_string(ano2);
+    }else{
+        anoDataMaior = to_string(ano2);
+        anoDataMenor = to_string(ano1);
+    }
+    string dataMaior = diaDataMaior + "/" + mesDataMaior + "/" + anoDataMaior;
+    string dataMenor = diaDataMenor + "/" + mesDataMenor + "/" + anoDataMenor;
+    
+    
+    fstream arq;
+    string temp;
+    int qt;
+    string cod[100];
+    qt = -1;
+
+
+
+    arq.open("funcionarios.txt", ios::in);
+    if(arq.is_open()){
+        while(getline(arq, temp)){
+            qt++;
+            for(int i=2; temp[i]!=','; i++){
+                cod[qt] += temp[i];
+            }
+            }
+    }
+    arq.close();
+
+    dia1 = stoi(diaDataMaior);
+    dia2 = stoi(diaDataMenor);
+    mes1 = stoi(mesDataMaior);
+    mes2 = stoi(mesDataMenor);
+    ano1 = stoi(anoDataMaior);
+    ano2 = stoi(anoDataMenor);
+
+    for(int i=0; i<=qt; i++){
+        int tipo = this->retornaTipo(cod[i]);//ok
+        if(tipo == 1){
+            this->tempOperario = this->consultaOperario(cod[i]);
+            string dataCompleta = "";
+            dataCompleta = tempOperario.getDataIngresso();
+            string dia = "";
+            string mes = "";
+            string ano = "";
+            for(int i=0; i<dataCompleta.size(); i++){
+                if(dataCompleta[i] == '/'){
+                    dia += dataCompleta[i-2];
+                    dia += dataCompleta[i-1];
+                    mes += dataCompleta[i+1];
+                    mes += dataCompleta[i+2];
+                    ano += dataCompleta[i+5];
+                    ano += dataCompleta[i+6];
+                }
+            }
+            if(dia <= diaDataMaior && dia >= diaDataMenor && mes <= mesDataMaior && mes >= mesDataMenor && ano <= anoDataMaior && ano >= anoDataMenor){
+               tempOperario.imprime();
+            }
+        }else if(tipo == 2){
+            this->tempGerente = this->consultaGerente(cod[i]);
+            string dataCompleta = "";
+            dataCompleta = tempGerente.getDataIngresso();
+            string dia = "";
+            string mes = "";
+            string ano = "";
+            for(int i=0; i<dataCompleta.size(); i++){
+                if(dataCompleta[i] == '/'){
+                    dia += dataCompleta[i-2];
+                    dia += dataCompleta[i-1];
+                    mes += dataCompleta[i+1];
+                    mes += dataCompleta[i+2];
+                    ano += dataCompleta[i+5];
+                    ano += dataCompleta[i+6];
+                }
+            }
+            if(dia <= diaDataMaior && dia >= diaDataMenor && mes <= mesDataMaior && mes >= mesDataMenor && ano <= anoDataMaior && ano >= anoDataMenor){
+               tempGerente.imprime();
+            }
+        }else if(tipo == 3){
+            this->tempDiretor = this->consultaDiretor(cod[i]);
+            string dataCompleta = "";
+            dataCompleta = tempDiretor.getDataIngresso();
+            string dia = "";
+            string mes = "";
+            string ano = "";
+            for(int i=0; i<dataCompleta.size(); i++){
+                if(dataCompleta[i] == '/'){
+                    dia += dataCompleta[i-2];
+                    dia += dataCompleta[i-1];
+                    mes += dataCompleta[i+1];
+                    mes += dataCompleta[i+2];
+                    ano += dataCompleta[i+5];
+                    ano += dataCompleta[i+6];
+                }
+            }
+            if(dia <= diaDataMaior && dia >= diaDataMenor && mes <= mesDataMaior && mes >= mesDataMenor && ano <= anoDataMaior && ano >= anoDataMenor){
+               tempDiretor.imprime();
+            }
+        else if(tipo == 4){
+            this->tempGerente = this->consultaGerente(cod[i]);
+            string dataCompleta = "";
+            dataCompleta = tempGerente.getDataIngresso();
+            string dia = "";
+            string mes = "";
+            string ano = "";
+            for(int i=0; i<dataCompleta.size(); i++){
+                if(dataCompleta[i] == '/'){
+                    dia += dataCompleta[i-2];
+                    dia += dataCompleta[i-1];
+                    mes += dataCompleta[i+1];
+                    mes += dataCompleta[i+2];
+                    ano += dataCompleta[i+5];
+                    ano += dataCompleta[i+6];
+                }
+            }
+            if(dia <= diaDataMaior && dia >= diaDataMenor && mes <= mesDataMaior && mes >= mesDataMenor && ano <= anoDataMaior && ano >= anoDataMenor){
+               tempGerente.imprime();
+            }
+        }
+
+        
+        
+    }
+    }
+};
+
     
 
 

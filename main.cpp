@@ -14,7 +14,8 @@ void imprimeMenu(){
     cout << "8 - Calcular FOLHA DA EMPRESA MENSAL\n";
     cout << "9 - Aleatoriza\n";
     cout << "10 - Folha Anual\n";
-    cout << "11 - Sair\n";
+    cout << "11 - Consulta por data\n";
+    cout << "12 - Sair\n";
     // Rotina Especial Escondida: case 11 ->
     // Aleatoriza todos os valores de horas trabalhadas e horas extras dos funcionários.
 }
@@ -31,7 +32,11 @@ int main (){
     while(1){ 
         imprimeMenu();
         cin >> opcao;
-        
+        if(opcao > 12 || opcao < 1){
+            cout << "Opcao invalida\n";
+            system("pause");
+            continue;
+        }
         switch(opcao){
             case 1:
                 system("cls");
@@ -182,8 +187,9 @@ int main (){
                     cout << "Digite a palavra-chave desejada: \n";
                     cin.ignore();
                     getline(cin, temp);
-                     system("cls");
+                    system("cls");
                     gerencia.listarFuncionarios(100, temp);
+                    cout << "Teste\n";
                     system("pause");
                 }else if(tipoTemp == 6){
                     cout << "Saindo...\n";
@@ -315,10 +321,14 @@ int main (){
                 system("pause");
                 break;
             case 11:
+                
+                gerencia.consultaPorData(0, 0, 0, 0, 0, 0);
+                system("pause");
+                break;
+            case 12:
                 system("cls");
                 cout << "Saindo...\n";
                 return 0;
-           
             default:
                 cout << "Opção inválida!\n";
                 break;
