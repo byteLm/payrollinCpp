@@ -93,8 +93,7 @@ Entrega:
 ● Satisfazer pelo menos dois Requisitos Extras.✅
 ● Comentários de documentação adequados no código. 
 
-Os projetos devem ser desenvolvidos em grupos de até 3 alunos.
 --------------------------------------------------------------------------------------------------------------------------------------
-*Todos os itens marcados foram desenvolvidos, bem com possuem documentação neste mesmo repositório. 
+*Todos os itens marcados foram desenvolvidos, bem como possuem documentação neste mesmo repositório. 
 Códigos e arquivos são de livre acesso e alteração. :)
 --------------------------------------------------------------------------------------------------------------------------------------
