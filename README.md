@@ -1,17 +1,15 @@
-# Projeto da Disciplina Linguagem de Programação I - 2021.2
 
+--------------------------------------------------------------------------------------------------------------------------------------
+# Projeto da Disciplina Linguagem de Programação I - 2021.2
+--------------------------------------------------------------------------------------------------------------------------------------
+Texto/Objetivos:
 
 Desenvolva um Sistema de Gerenciamento de Folha de Pagamento para uma determinada
 empresa. Nesta empresa há quatro tipos de funcionários: operador, gerente, diretor e
 presidente. ✅
 
-
-
-
 O sistema deve possuir os tipos Operador, Gerente, Diretor e Presidente. ✅
 Todos devem possuir os atributos: número do código do funcionário, nome, endereço, telefone, data de ingresso, designação (indica se é operador, gerente, diretor ou presidente) e salário. Tipos específicos de funcionários, possuem informações adicionais que precisam ser recuperadas: ✅
-
-
 
 ● Gerente: nome da área de supervisão✅
 
@@ -19,9 +17,6 @@ Todos devem possuir os atributos: número do código do funcionário, nome, ende
 
 ● Presidente: área de formação e qual formação acadêmica máxima (por exemplo,
 especialista, mestre, doutor...) ✅
-
-
-
 
 Além disso, este projeto deve ter outras classes e subclasses, crie classes para gerenciar os
 requisitos. Não façam tudo na função main() .
@@ -50,9 +45,6 @@ rotina de aumento de salário para todos os funcionários. Sendo os percentuais 
 ● Diretor: 20%✅
 ● Presidente 30%✅
 
-
-
-
 e) Calcular Folha Salarial: Responsável por realizar o cálculo de salário de todos os funcionários
 para um determinado mês. Assim, será solicitado do usuário o mês a que se refere a folha
 salarial. Caso a folha para este mês já tenha sido calculada, exibir mensagem alertando que a
@@ -62,7 +54,6 @@ trabalhados no mês pelo funcionário e o número de horas extras trabalhadas. U
 hora-extra equivale ao dobro daquilo pago para hora normal. Deverá também ser contabilizado
 os descontos relativos ao imposto de renda e previdência social.
 
-
 f) Imprimir ou nome completo. Deve constar o salário base, descontos e salário líquido do
 empregado.uma Folha de Salário do Funcionário: Esse recurso também solicita o código do
 funcionário ✅
@@ -71,7 +62,6 @@ g) Imprimir a folha salarial empresa: Esse recurso dá opção de o usuário esc
 anual calculando o somatório de salário de cada empregado ou uma folha mensal, sendo que
 para esta última será solicitado qual mês do ano. ✅
 
-
 h) Buscar: recurso que permite a busca de funcionários pelo:✅
 ● Nome: fazer busca parcial✅
 ● Data de ingresso (dia, mês e ano): fazer por intervalo de tempo
@@ -79,12 +69,8 @@ h) Buscar: recurso que permite a busca de funcionários pelo:✅
 As informações de registro de funcionário exibidas são aquelas fornecidas ao adicionar um✅
 novo registro de funcionário.✅
 
-
 É esperado várias classes, herança, polimorfismo e classes abstratas, todas estas relações
 devem ser descritas no documento.
-
-
-
 
 Requisitos Extras:
 a) Todos os dados devem ser salvos em arquivo. Criar funções para salvamento e recuperação
@@ -108,3 +94,7 @@ Entrega:
 ● Comentários de documentação adequados no código. 
 
 Os projetos devem ser desenvolvidos em grupos de até 3 alunos.
+--------------------------------------------------------------------------------------------------------------------------------------
+*Todos os itens marcados foram desenvolvidos, bem com possuem documentação neste mesmo repositório. 
+Códigos e arquivos são de livre acesso e alteração. :)
+--------------------------------------------------------------------------------------------------------------------------------------
